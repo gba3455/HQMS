@@ -7,6 +7,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -123,6 +125,7 @@ public class Util {
 	  }
 	  
 	  /** 根据地址获取到经纬度
+	 * @return 
 	  */
 //		public static String getGeocoderLatitude(String address, String city) {
 //			BufferedReader in = null;
@@ -200,5 +203,31 @@ public class Util {
 //			return locationNode;
 //	 
 //		}
+	  
+	  public static Object[][] ResultsetToArray(ResultSet rs) {
+	        try {
+	            ResultSetMetaData meta = rs.getMetaData();
+	            int columnCount = meta.getColumnCount();
+	            String[] strutName = new String[columnCount];
+	            byte[] strutType = new byte[columnCount];
+	            rs.last();
+	            int itemCount = rs.getRow();
+	            rs.first();
+	            Object[][] data = new Object[columnCount][itemCount];
+	            for (int i = 0; i < columnCount; i++) {
+	                strutType[i] = (byte) meta.getColumnType(i);//esultSetMetaData中的字段类型表示应该是不一致的，这里做一个类型映射和转换即可
+	                strutName[i] = meta.getColumnName(i);
+	            }
+	            for (int i = 0; rs.next(); i++) {
+	                for (int j = 0; j < columnCount; j++) {
+	                    data[i][j] = rs.getObject(j);
+	                }
+	            }
+	            return data;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			return null;
+	    }
 	
 }

@@ -9,6 +9,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import net.sf.json.JSONObject;
 
@@ -228,11 +232,41 @@ public class DataTranDemo {
 //		catch (Exception e) {
 //			e.printStackTrace();
 //		} 
-		long begin2 = System.currentTimeMillis(); 
-		ConManager con = new ConManager();
-		con.getData();
-        long end2 = System.currentTimeMillis();  
-        System.out.println("程序运行时间为："+(end2-begin2));
+		ExecutorService exec = Executors.newCachedThreadPool();
+		long begin = System.currentTimeMillis(); 
+//		util.getData();
+//		Thread t = new Thread(util);
+//		t.start();
+		int count = new JDBCUtil().getCount();
+		for (int i = 0; i < count; i++) {
+			JDBCUtil util = new JDBCUtil();
+				if (i == 0) {
+					util.setStart(0);
+					util.setEnd(CONFIG.Thread_Page_Size);
+//					Thread t = new Thread(util);
+//					t.start();
+					exec.submit(util);
+				} else if (i > 0 && i % CONFIG.Thread_Page_Size == 0) {
+					util.setStart(i + 1);
+					if (i + CONFIG.Thread_Page_Size > count) {
+						util.setEnd(count);
+					} else {
+						util.setEnd(i + CONFIG.Thread_Page_Size);
+					}
+//					Thread t = new Thread(util);
+//					t.start();
+					exec.submit(util);
+				}
+		}
+		exec.shutdown();
+		try {
+			exec.awaitTermination(1, TimeUnit.HOURS);
+		} catch (InterruptedException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+        final long end = System.currentTimeMillis();
+        System.out.println((end-begin)/1000);
 	}
 }
 
