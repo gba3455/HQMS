@@ -9,4 +9,5 @@ public class CONFIG {
 	public final static String url = "jdbc:sqlserver://13.18.1.149:1433;DatabaseName=bagl_java";
 	public final static String dataTable = "template";
 	public final static String encode = "UTF-8";
+	public final static int Thread_Page_Size = 5000;
 }
