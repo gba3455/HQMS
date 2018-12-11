@@ -9,17 +9,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
 import net.sf.json.JSONObject;
-
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-
-import edc2010.util.net.JustHttp;
 
 public class DataTranDemo {
 	
@@ -27,7 +21,7 @@ public class DataTranDemo {
 	 * 服务器的域名地址
 	 */
 //	private final String SERVICE_URL="http://edc/hqcm_tran2";
-	private final String SERVICE_URL="https://hqmststest.medidata.com.cn";
+	private final String SERVICE_URL= CONFIG.SERVICE_URL;
 //	private final String SERVICE_URL = "http://localhost:8080/hqcm_tran2";
 	
 	
@@ -44,6 +38,8 @@ public class DataTranDemo {
 	 * 密码
 	 */
 	private final String PWD="dsyy@HQMS"; //   
+	
+	public static int row = 0;
 	
 	/**
 	 * 获取token
@@ -237,14 +233,15 @@ public class DataTranDemo {
 //		util.getData();
 //		Thread t = new Thread(util);
 //		t.start();
+		//清空template
+		System.out.println("开始清空template表");
+		// 开始插入数据库
 		int count = new JDBCUtil().getCount();
 		for (int i = 0; i < count; i++) {
 			JDBCUtil util = new JDBCUtil();
 				if (i == 0) {
 					util.setStart(0);
 					util.setEnd(CONFIG.Thread_Page_Size);
-//					Thread t = new Thread(util);
-//					t.start();
 					exec.submit(util);
 				} else if (i > 0 && i % CONFIG.Thread_Page_Size == 0) {
 					util.setStart(i + 1);
@@ -253,8 +250,6 @@ public class DataTranDemo {
 					} else {
 						util.setEnd(i + CONFIG.Thread_Page_Size);
 					}
-//					Thread t = new Thread(util);
-//					t.start();
 					exec.submit(util);
 				}
 		}

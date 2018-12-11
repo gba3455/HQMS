@@ -1,12 +1,6 @@
 package edc2010.test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
@@ -16,7 +10,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
+import javadbf.DBFDataType;
+import javadbf.DBFField;
 
 public class Util {
 
@@ -230,4 +225,26 @@ public class Util {
 			return null;
 	    }
 	
+	  /**
+		 * 把数据库字段类型转换成DBF字段类型
+		 */
+		public static DBFDataType ResultsetTypeToDbfType(String rsType) {
+			DBFDataType strutType = DBFDataType.CHARACTER;
+			if (rsType == null) {
+				return DBFDataType.CHARACTER;
+			}
+			rsType = rsType.trim().toLowerCase();
+			if (rsType.equals("float") || rsType.equals("int")
+					|| rsType.equals("numeric") || rsType.equals("decimal")
+					|| rsType.equals("smallint") || rsType.equals("tinyint") || rsType.equals("bigint")) {
+				strutType = DBFDataType.NUMERIC;
+			} else if (rsType.equals("datetime") || rsType.equals("smalldatetime")) {
+				strutType = DBFDataType.CHARACTER;
+			} else if (rsType.equals("bit")) {
+				strutType = DBFDataType.DOUBLE;
+			} else {
+				strutType = DBFDataType.CHARACTER;
+			}
+			return strutType;
+		}
 }
