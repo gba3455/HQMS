@@ -11,4 +11,16 @@ public class CONFIG {
 	public final static String encode = "GBK";
 	public final static int Thread_Page_Size = 5000;
 	public final static int Column_Num = 346;
+	/**
+	 * 用户名
+	 */
+	public final static String USER="zzsdsyy_hqms"; 
+	/**
+	 * 密码
+	 */
+	public final static String PWD="dsyy@HQMS"; //  
+	/**
+	 * 返回数据的类型
+	 */
+	public final static String DATA_TYPE="json"; 
 }

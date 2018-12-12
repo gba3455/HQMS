@@ -21,23 +21,10 @@ public class DataTranDemo {
 	 * 服务器的域名地址
 	 */
 //	private final String SERVICE_URL="http://edc/hqcm_tran2";
-	private final String SERVICE_URL= CONFIG.SERVICE_URL;
 //	private final String SERVICE_URL = "http://localhost:8080/hqcm_tran2";
 	
 	
-	/**
-	 * 返回数据的类型
-	 */
-	private final String DATA_TYPE="json";
 	
-	/**
-	 * 用户名
-	 */
-	private final String USER="zzsdsyy_hqms"; 
-	/**
-	 * 密码
-	 */
-	private final String PWD="dsyy@HQMS"; //   
 	
 	public static int row = 0;
 	
@@ -46,7 +33,7 @@ public class DataTranDemo {
 	 * 
 	 */
 	public String getToken() throws IOException{
-	String sUrl = SERVICE_URL+"/docking/auto/gettoken.shtml?loginid="+USER+"&isDev=1&pwd="+PWD+"&datatype="+DATA_TYPE;
+	String sUrl = CONFIG.SERVICE_URL+"/docking/auto/gettoken.shtml?loginid="+CONFIG.USER+"&isDev=1&CONFIG.PWD="+CONFIG.PWD+"&datatype="+CONFIG.DATA_TYPE;
     System.out.println("send getToken request url:"+sUrl);
     String response="{}";
     try {
@@ -84,11 +71,11 @@ public class DataTranDemo {
 			String month="04";
 //			String orgid="14343";
 			String data_url="E:/201204_2012-09-21 14_55_51.0236563_14343.zip";
-			String sUrl = SERVICE_URL+"/autoReqTran.shtml?year="+year+"&month="+month+"&token="+token+"&datatype="+DATA_TYPE+"&genLargeDat=0";//+"&orgid="+orgid
-//			sUrl = SERVICE_URL+"/usp/doInnerAction?Action=autoreqFile&year="+year+"&month="+month+"&orgid="+orgid+"&token="+token+"&datatype="+DATA_TYPE;
+			String sUrl = CONFIG.SERVICE_URL+"/autoReqTran.shtml?year="+year+"&month="+month+"&token="+token+"&datatype="+CONFIG.DATA_TYPE+"&genLargeDat=0";//+"&orgid="+orgid
+//			sUrl = CONFIG.SERVICE_URL+"/usp/doInnerAction?Action=autoreqFile&year="+year+"&month="+month+"&orgid="+orgid+"&token="+token+"&datatype="+CONFIG.DATA_TYPE;
 			System.out.println("senddata url="+sUrl);
 			URL url = new URL(sUrl);
-//			URL url = new URL(SERVICE_URL+"/usp/doInnerAction?Action=autoreqFile&year="+year+"&month="+month+"&orgid="+orgid+"&token="+token+"&datatype="+DATA_TYPE);
+//			URL url = new URL(CONFIG.SERVICE_URL+"/usp/doInnerAction?Action=autoreqFile&year="+year+"&month="+month+"&orgid="+orgid+"&token="+token+"&datatype="+CONFIG.DATA_TYPE);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			
 			//设置连接超时时长，根据数据量大小而定
@@ -168,7 +155,7 @@ public class DataTranDemo {
 	public void findResult(String token){
 //		String token="45fb2ab1e81d4762a78ca82f0de6e3cc";
 		try {
-			URL url = new URL(SERVICE_URL+"/docking/auto/findResult.shtml?token="+token+"&datatype="+DATA_TYPE);
+			URL url = new URL(CONFIG.SERVICE_URL+"/docking/auto/findResult.shtml?token="+token+"&datatype="+CONFIG.DATA_TYPE);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setConnectTimeout(50000);
 			connection.setReadTimeout(50000);
@@ -230,11 +217,9 @@ public class DataTranDemo {
 //		} 
 		ExecutorService exec = Executors.newCachedThreadPool();
 		long begin = System.currentTimeMillis(); 
-//		util.getData();
-//		Thread t = new Thread(util);
-//		t.start();
-		//清空template
+		//开始清空template
 		System.out.println("开始清空template表");
+		JDBCUtil.CleanUpTable(CONFIG.dataTable);
 		// 开始插入数据库
 		int count = new JDBCUtil().getCount();
 		for (int i = 0; i < count; i++) {
@@ -260,6 +245,8 @@ public class DataTranDemo {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
+		// 开始读取template数据库
+		
         final long end = System.currentTimeMillis();
         System.out.println((end-begin)/1000);
 	}

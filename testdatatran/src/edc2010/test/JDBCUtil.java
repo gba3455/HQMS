@@ -60,7 +60,31 @@ String sql = "select count(*) as COUNT "
 		return 0;
     }
     
-    
+    public static void CleanUpTable(String tableName) {
+    	Connection con = ConManager.getDBConnection(CONFIG.url, CONFIG.U, CONFIG.P);
+        PreparedStatement statement = null;
+        ResultSet res = null;
+        try {
+            // SQL
+String sql = "delete from " + tableName;//查询test表
+            
+            statement = con.prepareStatement(sql);
+            res = statement.executeQuery();
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally{
+            try {
+                if(res != null) res.close();
+                if(statement != null) statement.close();
+                if(con != null) con.commit();con.close();
+            } catch (Exception e2) {
+                // TODO: handle exception
+                e2.printStackTrace();
+            }
+        }
+    }
+
     @Override
 	public void run() {
     	Connection con = ConManager.getDBConnection(CONFIG.url, CONFIG.U, CONFIG.P);
