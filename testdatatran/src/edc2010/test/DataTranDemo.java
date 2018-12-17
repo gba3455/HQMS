@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -215,12 +217,22 @@ public class DataTranDemo {
 //		catch (Exception e) {
 //			e.printStackTrace();
 //		} 
+
+//		JDBCUtil util = new JDBCUtil();
+//		Thread t = new Thread(util);
+//		t.start();
 		ExecutorService exec = Executors.newCachedThreadPool();
 		long begin = System.currentTimeMillis(); 
 		//开始清空template
 		System.out.println("开始清空template表");
-		JDBCUtil.CleanUpTable(CONFIG.dataTable);
-		// 开始插入数据库
+		boolean isClean = JDBCUtil.CleanUpTable(CONFIG.dataTable);
+		if (isClean) {
+			System.out.println("清空template表成功");
+		} else {
+			System.out.println("template表内无数据");
+		}
+		
+//		// 开始插入数据库
 		int count = new JDBCUtil().getCount();
 		for (int i = 0; i < count; i++) {
 			JDBCUtil util = new JDBCUtil();
@@ -246,7 +258,16 @@ public class DataTranDemo {
 			e.printStackTrace();
 		}
 		// 开始读取template数据库
-		
+		ResultSet res = JDBCUtil.GetTableData(CONFIG.dataTable);
+		try {
+			DBFUtil.DoDBF(res);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
         final long end = System.currentTimeMillis();
         System.out.println((end-begin)/1000);
 	}

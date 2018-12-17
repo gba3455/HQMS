@@ -125,7 +125,7 @@ public class BCConvert {
     			// 不全是数字
     		} else {
         		if (Util.getStringLength(value, CONFIG.encode) > value_lenth) {
-        			return Util.bSubstring(value, value_lenth);
+        			return Util.bSubstring(value, value_lenth - 1);
         		} else {
         			return value;
         		}
@@ -148,6 +148,20 @@ public class BCConvert {
     	} else {
         	return Integer.parseInt(value);
     	}
+    }
+    
+    // 获取字段长度
+    public static int getLenth(Map<String, String[]> lenth_map,String column) throws Exception {
+    	// 字段是否在map里
+    	if (lenth_map.containsKey(column)) {
+    		// 如果字段在map里，返回对应长度
+    		String[] type_lenth = lenth_map.get(column);
+    		if ("BIGINT".equals(type_lenth[0]) || "DATETIME".equals(type_lenth[0]) || "DECIMAL".equals(type_lenth[0])) {
+    			return 10;
+    		}
+    		return Integer.parseInt(lenth_map.get(column)[1]);
+    	}
+		return 0;
     }
    
     // 处理数字

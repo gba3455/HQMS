@@ -3,7 +3,9 @@ package edc2010.test;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -246,5 +248,11 @@ public class Util {
 				strutType = DBFDataType.CHARACTER;
 			}
 			return strutType;
+		}
+		
+		public static String getNowDate() {
+			Date now = new Date(); 
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
+			return dateFormat.format( now ); 
 		}
 }
