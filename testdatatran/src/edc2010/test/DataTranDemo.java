@@ -200,63 +200,57 @@ public class DataTranDemo {
 	}
 	
 	public static void main(String[] args){
-////	  testjson();
-////	  if(true)return ;
-//		DataTranDemo demo = new DataTranDemo();
-//		try {
-//			String token = demo.getToken();
-//			System.out.println(token);
-////			String token = "gqntanru28ob8mqvqsltuc5fn";
-//			if (StringUtils.isNotBlank(token)){//false && 
-//			demo.sendData(token);
-//			Thread.sleep(2000);
-////			String token = "15097f92d103483fbe02d29d1ee9cd25";
-//			demo.findResult(token);
-//			}
-//		} 
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		} 
-
-//		JDBCUtil util = new JDBCUtil();
-//		Thread t = new Thread(util);
-//		t.start();
 		ExecutorService exec = Executors.newCachedThreadPool();
 		long begin = System.currentTimeMillis(); 
 		//开始清空template
-		System.out.println("开始清空template表");
-		boolean isClean = JDBCUtil.CleanUpTable(CONFIG.dataTable);
-		if (isClean) {
-			System.out.println("清空template表成功");
-		} else {
-			System.out.println("template表内无数据");
+		if (CONFIG.CleanTable) {
+			System.out.println("开始清空template表");
+			boolean isClean = JDBCUtil.CleanUpTable(CONFIG.dataTable);
+			if (isClean) {
+				System.out.println("清空template表成功");
+			} else {
+				System.out.println("template表内无数据");
+			}
 		}
 		
-//		// 开始插入数据库
-		int count = new JDBCUtil().getCount();
-		for (int i = 0; i < count; i++) {
-			JDBCUtil util = new JDBCUtil();
-				if (i == 0) {
-					util.setStart(0);
-					util.setEnd(CONFIG.Thread_Page_Size);
-					exec.submit(util);
-				} else if (i > 0 && i % CONFIG.Thread_Page_Size == 0) {
-					util.setStart(i + 1);
-					if (i + CONFIG.Thread_Page_Size > count) {
-						util.setEnd(count);
-					} else {
-						util.setEnd(i + CONFIG.Thread_Page_Size);
+		// 开始插入数据库
+		if (CONFIG.IsMultiThread) {
+			int count = new JDBCUtil().getCount();
+			for (int i = 0; i < count; i++) {
+				JDBCUtil util = new JDBCUtil();
+					if (i == 0) {
+						util.setStart(0);
+						util.setEnd(CONFIG.Thread_Page_Size);
+						exec.submit(util);
+					} else if (i > 0 && i % CONFIG.Thread_Page_Size == 0) {
+						util.setStart(i + 1);
+						if (i + CONFIG.Thread_Page_Size > count) {
+							util.setEnd(count);
+						} else {
+							util.setEnd(i + CONFIG.Thread_Page_Size);
+						}
+						exec.submit(util);
 					}
-					exec.submit(util);
-				}
+			}
+			exec.shutdown();
+			try {
+				exec.awaitTermination(1, TimeUnit.HOURS);
+			} catch (InterruptedException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		} else {
+			JDBCUtil util = new JDBCUtil();
+			Thread t = new Thread(util);
+			t.start();
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
 		}
-		exec.shutdown();
-		try {
-			exec.awaitTermination(1, TimeUnit.HOURS);
-		} catch (InterruptedException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
+		
 		// 开始读取template数据库
 		ResultSet res = JDBCUtil.GetTableData(CONFIG.dataTable);
 		try {
