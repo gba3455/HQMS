@@ -17,6 +17,9 @@ import java.util.concurrent.TimeUnit;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.IOUtils;
 
+import javadbf.NFDFlightDataTimerTask;
+import javadbf.TimerManager;
+
 public class DataTranDemo {
 	
 	/**
@@ -200,9 +203,10 @@ public class DataTranDemo {
 	}
 	
 	public static void main(String[] args){
+		
 		ExecutorService exec = Executors.newCachedThreadPool();
 		long begin = System.currentTimeMillis(); 
-		//开始清空template
+		//Starting Clean up template
 		if (CONFIG.CleanTable) {
 			System.out.println("开始清空template表");
 			boolean isClean = JDBCUtil.CleanUpTable(CONFIG.dataTable);
@@ -213,7 +217,7 @@ public class DataTranDemo {
 			}
 		}
 		
-		// 开始插入数据库
+		// Starting Insert Data Into Database
 		if (CONFIG.IsMultiThread) {
 			int count = new JDBCUtil().getCount();
 			for (int i = 0; i < count; i++) {
@@ -262,8 +266,8 @@ public class DataTranDemo {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-        final long end = System.currentTimeMillis();
-        System.out.println((end-begin)/1000);
-	}
+//        final long end = System.currentTimeMillis();
+//        System.out.println((end-begin)/1000);
+    }
 }
 

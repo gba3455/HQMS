@@ -255,4 +255,13 @@ public class Util {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
 			return dateFormat.format( now ); 
 		}
+		
+		public static String getSomedayEarly(int days) {
+			java.util.Calendar c=java.util.Calendar.getInstance();    
+	        java.text.SimpleDateFormat f=new java.text.SimpleDateFormat("yyyyMMdd");    
+	        // Reduce 10 Days
+	        c.add(java.util.Calendar.DATE, days);
+	        System.out.println( "获取日期：" + f.format(c.getTime()));
+	        return f.format(c.getTime());
+		}
 }

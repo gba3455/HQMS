@@ -21,9 +21,10 @@ public class CONFIG {
 	//返回数据的类型
 	public final static String DATA_TYPE="json"; 
 	// 限制出院日期
-	public final static String OUT_DATE = " a.FCYDATE between '20181101' and '20181130' ";
+	public static String OUT_DATE = " a.FCYDATE between '" + Util.getSomedayEarly(-10) + "' and '" + Util.getSomedayEarly(-10) + "' ";
 	// 启动时是否清空template
-	public final static boolean CleanTable = false;
+	public final static boolean CleanTable = true;
 	// 是否多线程
-	public final static boolean IsMultiThread = false;
+	public final static boolean IsMultiThread = true;
+	
 }
