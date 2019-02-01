@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.IOUtils;
@@ -204,70 +206,23 @@ public class DataTranDemo {
 	
 	public static void main(String[] args){
 		
-		ExecutorService exec = Executors.newCachedThreadPool();
-		long begin = System.currentTimeMillis(); 
-		//Starting Clean up template
-		if (CONFIG.CleanTable) {
-			System.out.println("开始清空template表");
-			boolean isClean = JDBCUtil.CleanUpTable(CONFIG.dataTable);
-			if (isClean) {
-				System.out.println("清空template表成功");
-			} else {
-				System.out.println("template表内无数据");
-			}
-		}
-		
-		// Starting Insert Data Into Database
-		if (CONFIG.IsMultiThread) {
-			int count = new JDBCUtil().getCount();
-			for (int i = 0; i < count; i++) {
-				JDBCUtil util = new JDBCUtil();
-					if (i == 0) {
-						util.setStart(0);
-						util.setEnd(CONFIG.Thread_Page_Size);
-						exec.submit(util);
-					} else if (i > 0 && i % CONFIG.Thread_Page_Size == 0) {
-						util.setStart(i + 1);
-						if (i + CONFIG.Thread_Page_Size > count) {
-							util.setEnd(count);
-						} else {
-							util.setEnd(i + CONFIG.Thread_Page_Size);
-						}
-						exec.submit(util);
-					}
-			}
-			exec.shutdown();
-			try {
-				exec.awaitTermination(1, TimeUnit.HOURS);
-			} catch (InterruptedException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			}
-		} else {
-			JDBCUtil util = new JDBCUtil();
-			Thread t = new Thread(util);
-			t.start();
-			try {
-				t.join();
-			} catch (InterruptedException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			}
-		}
-		
-		// 开始读取template数据库
-		ResultSet res = JDBCUtil.GetTableData(CONFIG.dataTable);
-		try {
-			DBFUtil.DoDBF(res);
-		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-//        final long end = System.currentTimeMillis();
-//        System.out.println((end-begin)/1000);
-    }
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(1);//先定义8个线程空间
+	      final ScheduledFuture<?> future = service.scheduleAtFixedRate(new ExecuteManager(), 0,24,
+	                 TimeUnit.HOURS);
+
+	      //使用1个线程
+	         Thread t= new Thread(new Runnable() {
+	                public void run() {
+	                    try {
+	                        future.get();
+	                    } catch (Exception e) {
+	                        System.out.println(e.getCause().getMessage());//日志信息输出
+	                        future.cancel(false);//关闭线程
+	                    }
+	                }
+	        });
+	        t.start() ;
+
+	   }	
 }
 

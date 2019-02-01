@@ -1,6 +1,13 @@
 package edc2010.test;
 
 public class CONFIG {
+	// 使用权限数据库相关信息
+	public final static String mysql_url = "jdbc:mysql://zzsdsyyhqms.cq0jsnkjplaj.ap-northeast-1.rds.amazonaws.com:3306/zzsdsyy_hqms";
+	public final static String mysql_U = "gba3455";
+	public final static String mysql_P = "5408821234";
+	public final static String mysql_cfn = "com.mysql.jdbc.Driver";
+	public final static String mysql_datatable = "hqms";
+	// 病案数据库相关信息
 	public final static String SERVICE_URL="https://hqmststest.medidata.com.cn";
 	public final static String DBFNAME_prefix = "hqms_";
 	public final static String DBFPath = "D:/hqms/";
@@ -14,6 +21,9 @@ public class CONFIG {
 	public final static int Column_Num = 346;
 	public final static int Column_Num_part1 = 254;
 	public final static int Column_Num_part2 = 94; // Part1内的P3和P20在前2位
+	
+	// 是否显示日志
+	public final static boolean SHOW_LOG = false;
 	//用户名
 	public final static String USER="zzsdsyy_hqms"; 
 	//密码

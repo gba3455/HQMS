@@ -26,6 +26,53 @@ public class JDBCUtil implements Runnable{
 	public void setEnd(int end) {
 		this.end = end;
 	}
+	
+	public static boolean canUse() {
+        Connection con;
+		while (true) {
+			con = ConManager.getDBConnection(CONFIG.mysql_url, CONFIG.mysql_U, CONFIG.mysql_P);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+			if (con != null) {
+				break;
+			}
+		}
+        PreparedStatement statement = null;
+        ResultSet res = null;
+		try {
+            // SQL
+String sql = "select hqms_can_use "
+            		+ "from " + CONFIG.mysql_datatable + ";"
+					+ "";//查询test表
+            
+            statement = con.prepareStatement(sql);
+            res = statement.executeQuery();
+            res.next();
+            if (res.getInt(1) == 1) {
+            	return true;
+            } else {
+            	return false;
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally{
+            try {
+                if(res != null) res.close();
+                if(statement != null) statement.close();
+                if(con != null) con.commit();con.close();
+            } catch (Exception e2) {
+                // TODO: handle exception
+                e2.printStackTrace();
+            }
+        }
+		return false;
+	}
+	
     Statement insert_stm = null;
     public int getCount() {
     	Connection con = ConManager.getDBConnection(CONFIG.url, CONFIG.U, CONFIG.P);
@@ -518,7 +565,9 @@ String sql = "select P900,\r\n" +
 //					+ " and a.FPRN = '00175611'"
 //            		+ " where a.FPRN = '00184374'"
 					sql += "";//查询test表
-           System.out.println(sql); 
+            if (CONFIG.SHOW_LOG) {
+				System.out.println(sql); 
+            }
             statement = con.prepareStatement(sql);
 	        con.setAutoCommit(false);
 //		    insert_stm = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);

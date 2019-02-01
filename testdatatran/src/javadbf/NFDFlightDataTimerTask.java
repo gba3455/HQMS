@@ -76,9 +76,6 @@ public class NFDFlightDataTimerTask extends TimerTask {
     		ResultSet res = JDBCUtil.GetTableData(CONFIG.dataTable);
     		try {
     			DBFUtil.DoDBF(res);
-    		} catch (SQLException e) {
-    			// TODO 自动生成的 catch 块
-    			e.printStackTrace();
     		} catch (Exception e) {
     			// TODO 自动生成的 catch 块
     			e.printStackTrace();

@@ -256,6 +256,12 @@ public class Util {
 			return dateFormat.format( now ); 
 		}
 		
+		public static String getNowTime() {
+			Date now = new Date(); 
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
+			return dateFormat.format( now ); 
+		}
+		
 		public static String getSomedayEarly(int days) {
 			java.util.Calendar c=java.util.Calendar.getInstance();    
 	        java.text.SimpleDateFormat f=new java.text.SimpleDateFormat("yyyyMMdd");    

@@ -2,6 +2,7 @@ package edc2010.test;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
@@ -34,7 +35,7 @@ public class DBFUtil implements Runnable{
 	}
     
 
-	public static void DoDBF(ResultSet res) throws Exception {
+	public static void DoDBF(ResultSet res) {
 		DBFField dbf_fields_part1[] = new DBFField[CONFIG.Column_Num_part1];
 		DBFField dbf_fields_part2[] = new DBFField[CONFIG.Column_Num_part2];
         DBFWriter writer_part1 = null;
@@ -43,116 +44,149 @@ public class DBFUtil implements Runnable{
         File file_part2 = null;
 		FileOutputStream fos_part1 = null;
 		FileOutputStream fos_part2 = null;
-		Patient patient = new Patient();
-		ResultSetMetaData data=res.getMetaData();
+		try {
+			Patient patient = new Patient();
+			ResultSetMetaData data=res.getMetaData();
+			// 生成DBFWritter实例
+	        writer_part1 = new DBFWriter();
+	        writer_part2 = new DBFWriter();
+	        
+	        // 生成File_part1实例
+	        file_part1 = new File(CONFIG.DBFPath + CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part1.dbf");
+	        file_part1.createNewFile();
+	        fos_part1 = new FileOutputStream(file_part1);
 
-        // 生成DBFWritter实例
-        writer_part1 = new DBFWriter();
-        writer_part2 = new DBFWriter();
-        
-        // 生成File_part1实例
-        file_part1 = new File(CONFIG.DBFPath + CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part1.dbf");
-        file_part1.createNewFile();
-        fos_part1 = new FileOutputStream(file_part1);
+	        // 生成File_part2实例
+			file_part2 = new File(CONFIG.DBFPath + CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part2.dbf");
+			file_part2.createNewFile();
+			fos_part2 = new FileOutputStream(file_part2);
+			//DBF文件字段
+			// part1
+	    	for (int i = 0; i < Patient.column_part1.length; i++) {
+	    		// 设置dbf字段名
+	    		dbf_fields_part1[i] = new DBFField();
+	        	dbf_fields_part1[i].setName(Patient.column_part1[i]); 
+	    		// 设置dbf类型
+	        	dbf_fields_part1[i].setType(Util.ResultsetTypeToDbfType(patient.getLenthMap().get(Patient.column_part1[i])[0]));
+	        	// 设置dbf长度
+	        	dbf_fields_part1[i].setLength(BCConvert.getLenth(patient.getLenthMap(), Patient.column_part1[i]));
 
-        // 生成File_part2实例
-		file_part2 = new File(CONFIG.DBFPath + CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part2.dbf");
-		file_part2.createNewFile();
-		fos_part2 = new FileOutputStream(file_part2);
-		//DBF文件字段
-		// part1
-    	for (int i = 0; i < Patient.column_part1.length; i++) {
-    		// 设置dbf字段名
-    		dbf_fields_part1[i] = new DBFField();
-        	dbf_fields_part1[i].setName(Patient.column_part1[i]); 
-    		// 设置dbf类型
-        	dbf_fields_part1[i].setType(Util.ResultsetTypeToDbfType(patient.getLenthMap().get(Patient.column_part1[i])[0]));
-        	// 设置dbf长度
-        	dbf_fields_part1[i].setLength(BCConvert.getLenth(patient.getLenthMap(), Patient.column_part1[i]));
+	        	// 如果是数字类型，设置小数点后2位
+	        		for(String four_two : StaticData.FourPointTwo_flag) {
+	        			if (Patient.column_part1[i] == four_two) {
+	                    	dbf_fields_part1[i].setDecimalCount(2);
+	        			}
+	        		}
+	        		for(String seven_two : StaticData.SevenPointTwo_flag) {
+	        			if (Patient.column_part1[i] == seven_two) {
+	                    	dbf_fields_part1[i].setDecimalCount(2);
+	        			}
+	        		}
+	        		for(String eight_two : StaticData.EightPointTwo_flag) {
+	        			if (Patient.column_part1[i] == eight_two) {
+	                    	dbf_fields_part1[i].setDecimalCount(2);
+	        			}
+	        		}
+	        		for(String ten_two : StaticData.TenPointTwo_flag) {
+	        			if (Patient.column_part1[i] == ten_two) {
+	                    	dbf_fields_part1[i].setDecimalCount(2);
+	        			}
+	        		}
 
-        	// 如果是数字类型，设置小数点后2位
-        		for(String four_two : StaticData.FourPointTwo_flag) {
-        			if (Patient.column_part1[i] == four_two) {
-                    	dbf_fields_part1[i].setDecimalCount(2);
-        			}
-        		}
-        		for(String seven_two : StaticData.SevenPointTwo_flag) {
-        			if (Patient.column_part1[i] == seven_two) {
-                    	dbf_fields_part1[i].setDecimalCount(2);
-        			}
-        		}
-        		for(String eight_two : StaticData.EightPointTwo_flag) {
-        			if (Patient.column_part1[i] == eight_two) {
-                    	dbf_fields_part1[i].setDecimalCount(2);
-        			}
-        		}
-        		for(String ten_two : StaticData.TenPointTwo_flag) {
-        			if (Patient.column_part1[i] == ten_two) {
-                    	dbf_fields_part1[i].setDecimalCount(2);
-        			}
-        		}
+	    	}
+	    	writer_part1.setFields(dbf_fields_part1);
+	    	writer_part1.setCharset(Charset.forName(CONFIG.encode));
+	    	// part2
+	    	for (int i = 0; i < Patient.column_part2.length; i++) {
+	    		// 设置dbf字段名
+	    		dbf_fields_part2[i] = new DBFField();
+	        	dbf_fields_part2[i].setName(Patient.column_part2[i]); 
+	    		// 设置dbf类型
+	        	dbf_fields_part2[i].setType(Util.ResultsetTypeToDbfType(patient.getLenthMap().get(Patient.column_part2[i])[0]));
+	        	// 设置dbf长度
+	        	dbf_fields_part2[i].setLength(BCConvert.getLenth(patient.getLenthMap(), Patient.column_part2[i]));
+	        	// 如果是数字类型，设置小数点后2位
+	        		for(String four_two : StaticData.FourPointTwo_flag) {
+	        			if (Patient.column_part2[i] == four_two) {
+	                    	dbf_fields_part2[i].setDecimalCount(2);
+	        			}
+	        		}
+	        		for(String seven_two : StaticData.SevenPointTwo_flag) {
+	        			if (Patient.column_part2[i] == seven_two) {
+	                    	dbf_fields_part2[i].setDecimalCount(2);
+	        			}
+	        		}
+	        		for(String eight_two : StaticData.EightPointTwo_flag) {
+	        			if (Patient.column_part2[i] == eight_two) {
+	                    	dbf_fields_part2[i].setDecimalCount(2);
+	        			}
+	        		}
+	        		for(String ten_two : StaticData.TenPointTwo_flag) {
+	        			if (Patient.column_part2[i] == ten_two) {
+	                    	dbf_fields_part2[i].setDecimalCount(2);
+	        			}
+	        		}
 
-    	}
-    	writer_part1.setFields(dbf_fields_part1);
-    	writer_part1.setCharset(Charset.forName(CONFIG.encode));
-    	// part2
-    	for (int i = 0; i < Patient.column_part2.length; i++) {
-    		// 设置dbf字段名
-    		dbf_fields_part2[i] = new DBFField();
-        	dbf_fields_part2[i].setName(Patient.column_part2[i]); 
-    		// 设置dbf类型
-        	dbf_fields_part2[i].setType(Util.ResultsetTypeToDbfType(patient.getLenthMap().get(Patient.column_part2[i])[0]));
-        	// 设置dbf长度
-        	dbf_fields_part2[i].setLength(BCConvert.getLenth(patient.getLenthMap(), Patient.column_part2[i]));
-        	// 如果是数字类型，设置小数点后2位
-        		for(String four_two : StaticData.FourPointTwo_flag) {
-        			if (Patient.column_part2[i] == four_two) {
-                    	dbf_fields_part2[i].setDecimalCount(2);
-        			}
-        		}
-        		for(String seven_two : StaticData.SevenPointTwo_flag) {
-        			if (Patient.column_part2[i] == seven_two) {
-                    	dbf_fields_part2[i].setDecimalCount(2);
-        			}
-        		}
-        		for(String eight_two : StaticData.EightPointTwo_flag) {
-        			if (Patient.column_part2[i] == eight_two) {
-                    	dbf_fields_part2[i].setDecimalCount(2);
-        			}
-        		}
-        		for(String ten_two : StaticData.TenPointTwo_flag) {
-        			if (Patient.column_part2[i] == ten_two) {
-                    	dbf_fields_part2[i].setDecimalCount(2);
-        			}
-        		}
+	    	}
+	    	writer_part2.setFields(dbf_fields_part2);
+	    	writer_part2.setCharset(Charset.forName(CONFIG.encode));
+	        while(res.next()){
+	        	System.out.println(res.getString("P3"));
+	        	System.out.println("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
+	        	
+	        	// ---------------- 读取part1 ---------------------------
+	        	
 
-    	}
-    	writer_part2.setFields(dbf_fields_part2);
-    	writer_part2.setCharset(Charset.forName(CONFIG.encode));
-        while(res.next()){
-        	System.out.println(res.getString("P3"));
-        	System.out.println("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
-        	
-        	// ---------------- 读取part1 ---------------------------
-        	
+	    		Object dbf_rowData_part1[] = new Object[CONFIG.Column_Num_part1];
+	        	for (int i = 0; i < Patient.column_part1.length; i++) {
+	        		dbf_rowData_part1[i] = res.getObject(Patient.column_part1[i]);
+	        	}
+	        	writer_part1.addRecord(dbf_rowData_part1);
+	        	// ---------------- 读取part2 ---------------------------
 
-    		Object dbf_rowData_part1[] = new Object[CONFIG.Column_Num_part1];
-        	for (int i = 0; i < Patient.column_part1.length; i++) {
-        		dbf_rowData_part1[i] = res.getObject(Patient.column_part1[i]);
-        	}
-        	writer_part1.addRecord(dbf_rowData_part1);
-        	// ---------------- 读取part2 ---------------------------
-
-    		Object dbf_rowData_part2[] = new Object[CONFIG.Column_Num_part2];
-        	for (int i = 0; i < Patient.column_part2.length; i++) {
-        		dbf_rowData_part2[i] = res.getObject(Patient.column_part2[i]);
-        	}
-        	writer_part2.addRecord(dbf_rowData_part2);
-        }	
-        writer_part1.write(fos_part1);
-    	System.out.println(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part1.dbf -----------------生成成功！");
-        writer_part2.write(fos_part2);
-    	System.out.println(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part2.dbf -----------------生成成功！");
+	    		Object dbf_rowData_part2[] = new Object[CONFIG.Column_Num_part2];
+	        	for (int i = 0; i < Patient.column_part2.length; i++) {
+	        		dbf_rowData_part2[i] = res.getObject(Patient.column_part2[i]);
+	        	}
+	        	writer_part2.addRecord(dbf_rowData_part2);
+	        }	
+	        writer_part1.write(fos_part1);
+	    	System.out.println(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part1.dbf -----------------生成成功！");
+	        writer_part2.write(fos_part2);
+	    	System.out.println(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part2.dbf -----------------生成成功！");
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} finally {
+			if (writer_part1 != null) {
+				writer_part1.close();
+			}
+			if ( fos_part1 != null) {
+				try {
+					fos_part1.close();
+				} catch (IOException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+			}
+			if (writer_part2 != null) {
+				writer_part2.close();
+			}
+			if ( fos_part2 != null) {
+				try {
+					fos_part2.close();
+				} catch (IOException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
     @Override
