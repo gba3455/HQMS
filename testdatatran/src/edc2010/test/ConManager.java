@@ -19,6 +19,7 @@ public class ConManager {
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
+			LoggerManager.setErrorLog(e);
 		}
 		return null;
 	}	

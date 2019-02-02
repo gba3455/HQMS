@@ -12,9 +12,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javadbf.DBFDataType;
-import javadbf.DBFField;
-
 public class Util {
 
 	public static boolean useLoop(String[] arr,String targetValue){
@@ -223,6 +220,7 @@ public class Util {
 	            return data;
 	        } catch (Exception e) {
 	            e.printStackTrace();
+	            LoggerManager.setErrorLog(e);
 	        }
 			return null;
 	    }
@@ -267,7 +265,8 @@ public class Util {
 	        java.text.SimpleDateFormat f=new java.text.SimpleDateFormat("yyyyMMdd");    
 	        // Reduce 10 Days
 	        c.add(java.util.Calendar.DATE, days);
-	        System.out.println( "获取日期：" + f.format(c.getTime()));
+//	        System.out.println( "获取日期：" + f.format(c.getTime()));
+//	        LoggerManager.setInfoLog( "获取日期：" + f.format(c.getTime()));
 	        return f.format(c.getTime());
 		}
 }

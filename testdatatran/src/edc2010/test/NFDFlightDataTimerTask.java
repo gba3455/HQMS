@@ -1,4 +1,4 @@
-package javadbf;
+package edc2010.test;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,10 +9,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import com.sun.istack.internal.logging.Logger;
-
-import edc2010.test.CONFIG;
-import edc2010.test.DBFUtil;
-import edc2010.test.JDBCUtil;
 
 public class NFDFlightDataTimerTask extends TimerTask {
 

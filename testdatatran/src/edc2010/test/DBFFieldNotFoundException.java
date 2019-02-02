@@ -1,4 +1,4 @@
-package javadbf;
+package edc2010.test;
 
 public class DBFFieldNotFoundException extends DBFException {
 

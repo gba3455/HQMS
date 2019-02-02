@@ -20,7 +20,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-package javadbf;
+package edc2010.test;
 
 import java.io.Closeable;
 import java.io.DataInputStream;

@@ -18,11 +18,10 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.IOUtils;
-
-import javadbf.NFDFlightDataTimerTask;
-import javadbf.TimerManager;
+import org.apache.log4j.Logger;
 
 public class DataTranDemo {
+	private static Logger logger = Logger.getLogger(DataTranDemo.class);
 	
 	/**
 	 * 服务器的域名地址
@@ -203,10 +202,8 @@ public class DataTranDemo {
 	  j.put("a1","aaa123");
 	  System.out.println(j.toString());
 	}
-	
 	public static void main(String[] args){
-		
-		ScheduledExecutorService service = Executors.newScheduledThreadPool(1);//先定义8个线程空间
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(1);//先定义1个线程空间
 	      final ScheduledFuture<?> future = service.scheduleAtFixedRate(new ExecuteManager(), 0,24,
 	                 TimeUnit.HOURS);
 
@@ -217,6 +214,7 @@ public class DataTranDemo {
 	                        future.get();
 	                    } catch (Exception e) {
 	                        System.out.println(e.getCause().getMessage());//日志信息输出
+	                        LoggerManager.setErrorLog(e.getCause().getMessage());
 	                        future.cancel(false);//关闭线程
 	                    }
 	                }

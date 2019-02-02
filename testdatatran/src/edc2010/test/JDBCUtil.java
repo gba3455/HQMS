@@ -36,6 +36,7 @@ public class JDBCUtil implements Runnable{
 			} catch (InterruptedException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
+				LoggerManager.setErrorLog(e);
 			}
 			if (con != null) {
 				break;
@@ -60,6 +61,7 @@ String sql = "select hqms_can_use "
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
+			LoggerManager.setErrorLog(e);
         }finally{
             try {
                 if(res != null) res.close();
@@ -68,6 +70,7 @@ String sql = "select hqms_can_use "
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
+				LoggerManager.setErrorLog(e2);
             }
         }
 		return false;
@@ -96,6 +99,7 @@ String sql = "select count(*) as COUNT "
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
+			LoggerManager.setErrorLog(e);
         }finally{
             try {
                 if(res != null) res.close();
@@ -104,6 +108,7 @@ String sql = "select count(*) as COUNT "
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
+				LoggerManager.setErrorLog(e2);
             }
         }
 		return 0;
@@ -127,6 +132,7 @@ String sql = "delete from " + tableName;//查询test表
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
+			LoggerManager.setErrorLog(e);
         }finally{
             try {
                 if(res != null) res.close();
@@ -135,6 +141,7 @@ String sql = "delete from " + tableName;//查询test表
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
+				LoggerManager.setErrorLog(e2);
             }
         }
         return false;
@@ -492,13 +499,16 @@ String sql = "select P900,\r\n" +
 		"P779,\r\n" + 
 		"P780,\r\n" + 
 		"P782 - P752 - P754 - P755 -P756-P757-P758-P759-P760-P761-P763-P767-P768-P769 -P771-P772-P773-P774-P775-P776-P777-P778-P779-P780 P781 from " + tableName;//查询test表
-//		System.out.println(sql);
+		if (CONFIG.SHOW_SQL_LOG) {
+			LoggerManager.setInfoLog(sql);
+		}
             statement = con.prepareStatement(sql);
             res = statement.executeQuery();
             return res;
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
+			LoggerManager.setErrorLog(e);
 //        }finally{
 //            try {
 //                if(res != null) res.close();
@@ -565,8 +575,8 @@ String sql = "select P900,\r\n" +
 //					+ " and a.FPRN = '00175611'"
 //            		+ " where a.FPRN = '00184374'"
 					sql += "";//查询test表
-            if (CONFIG.SHOW_LOG) {
-				System.out.println(sql); 
+            if (CONFIG.SHOW_SQL_LOG) {
+				LoggerManager.setInfoLog(sql); 
             }
             statement = con.prepareStatement(sql);
 	        con.setAutoCommit(false);
@@ -599,9 +609,9 @@ String sql = "select P900,\r\n" +
             // 获取病人字段属性
             Field[] fields = patient.getClass().getDeclaredFields();
             while(res.next()){
-//            	System.out.println("-----------------开始处理第" + res.getRow() + "条数据");
+//            	LoggerManager.setInfoLog("-----------------开始处理第" + res.getRow() + "条数据");
             	DataTranDemo.row++;
-//            	System.out.println("-----------------开始处理第" + DataTranDemo.row + "条数据");
+            	LoggerManager.setInfoLog("-----------------开始处理第" + DataTranDemo.row + "条数据");
             	for (int i = 0; i < fields.length; i++) {
             		columnName = fields[i].getName();
             		if (columnName == "columnMap" || columnName == "bigint_flag" || columnName == "lenth_map" || columnName == "column_part1" || columnName == "column_part2") {
@@ -615,8 +625,10 @@ String sql = "select P900,\r\n" +
             	// ---------------- 诊断 ---------------------------
             	// 创建诊断SQL
             	diagnose_sql = "select FICDM 主要诊断编码,case when fsxzd is null or fsxzd = '' then '无' else fsxzd end 主要诊断疾病描述,FRYBQBH 主要诊断入院病情,case when FZLJGBH = 5 or FZLJGBH is null or FZLJGBH = '' then 9 else FZLJGBH end 主要诊断出院情况 from tDiagnose where FZDLX != 's' and FPRN = '" + patient.getP3() + "' order by FZDLX asc";
-//            	System.out.println("病人病案号" + patient.getP3());
-//            	System.out.println(diagnose_sql);
+            	LoggerManager.setInfoLog("病人病案号" + patient.getP3());
+            	if (CONFIG.SHOW_SQL_LOG) {
+                	LoggerManager.setInfoLog(diagnose_sql);
+            	}
             	diagnose_statement = con.prepareStatement(diagnose_sql);
             	diagnose_res = diagnose_statement.executeQuery();
             	while (diagnose_res.next()) {
@@ -669,7 +681,9 @@ String sql = "select P900,\r\n" +
             			"when FQIEKOUBH = 3 and FYUHEBH = 1 then 7 when FQIEKOUBH = 3 and FYUHEBH = 2 then 8 when FQIEKOUBH = 3 and FYUHEBH = 3 then 9 when FQIEKOUBH = 3 and FYUHEBH is null or FYUHEBH = 4 then 12\r\n" + 
             			" end 切口愈合等级,FMZDOCT 麻醉医师\r\n" + 
             			"from TOPERATION t left join [13.18.1.150].THIS4.dbo.SS_SSDJK s on t.FPRN = s.blh collate Chinese_PRC_CI_AS where t.FPRN = '" + patient.getP3() + "';";
-//            	System.out.println(operation_sql);
+            	if (CONFIG.SHOW_SQL_LOG) {
+            		LoggerManager.setInfoLog(operation_sql);
+            	}
             	operation_statement = con.prepareStatement(operation_sql);
             	operation_res = operation_statement.executeQuery();
             	while (operation_res.next()) {
@@ -703,7 +717,7 @@ String sql = "select P900,\r\n" +
                 		getMethod = o_invoke.getMethod("set" + operation.getOper_flag()[row][12], new Class[] {String.class});
                 		getMethod.invoke(operation, operation_res.getString("麻醉医师"));
             	}
-//            	System.out.println("-----------------第" + DataTranDemo.row + "条数据读取完毕");
+            	LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据读取完毕");
 
             	// 开始插入数据库
             	columnName = null;
@@ -801,12 +815,14 @@ String sql = "select P900,\r\n" +
                 	}
                 }
                 String sql_to_insert = insert_SQL.substring(0, insert_SQL.length() - 1) + ")" + values_SQL.substring(0, values_SQL.length() - 1) + ");";
-//            	System.out.println("-----------------第" + DataTranDemo.row + "条数据插入SQL生成完成，开始插入数据库");
-//                System.out.println(sql_to_insert);
+            	LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据插入SQL生成完成，开始插入数据库");
+            	if (CONFIG.SHOW_SQL_LOG) {
+                    LoggerManager.setInfoLog(sql_to_insert);
+            	}
             	insert_statement = con.prepareStatement(sql_to_insert);
             	insert_statement.executeUpdate();
 //                insert_stm.addBatch(sql_to_insert);
-//            	System.out.println("-----------------第" + DataTranDemo.row + "条数据插入数据库成功");
+            	LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据插入数据库成功");
             	
             	// 杀死病人
             	patient.KillPatient();
@@ -825,8 +841,10 @@ String sql = "select P900,\r\n" +
 			} catch (SQLException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
+				LoggerManager.setErrorLog(e1);
 			}
             e.printStackTrace();
+			LoggerManager.setErrorLog(e);
         }finally{
             try {
                 if(res != null) res.close();
@@ -836,6 +854,7 @@ String sql = "select P900,\r\n" +
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
+				LoggerManager.setErrorLog(e2);
             }
         }
     }

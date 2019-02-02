@@ -13,10 +13,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javadbf.DBFDataType;
-import javadbf.DBFField;
-import javadbf.DBFWriter;
-
 import edc2010.test.Patient.P_Diagnose;
 import edc2010.test.Patient.P_Operation;
 
@@ -131,8 +127,10 @@ public class DBFUtil implements Runnable{
 	    	writer_part2.setFields(dbf_fields_part2);
 	    	writer_part2.setCharset(Charset.forName(CONFIG.encode));
 	        while(res.next()){
-	        	System.out.println(res.getString("P3"));
-	        	System.out.println("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
+//	        	//System.out.println(res.getString("P3"));
+	        	LoggerManager.setInfoLog(res.getString("P3"));
+//	        	//System.out.println("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
+	        	LoggerManager.setInfoLog("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
 	        	
 	        	// ---------------- 读取part1 ---------------------------
 	        	
@@ -151,18 +149,23 @@ public class DBFUtil implements Runnable{
 	        	writer_part2.addRecord(dbf_rowData_part2);
 	        }	
 	        writer_part1.write(fos_part1);
-	    	System.out.println(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part1.dbf -----------------生成成功！");
+	    	//System.out.println(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part1.dbf -----------------生成成功！");
+	    	LoggerManager.setInfoLog(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part1.dbf -----------------生成成功！");
 	        writer_part2.write(fos_part2);
-	    	System.out.println(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part2.dbf -----------------生成成功！");
+	    	//System.out.println(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part2.dbf -----------------生成成功！");
+	    	LoggerManager.setInfoLog(CONFIG.DBFNAME_prefix + Util.getNowDate() + "_part2.dbf -----------------生成成功！");
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
+			LoggerManager.setErrorLog(e);
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
+			LoggerManager.setErrorLog(e);
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
+			LoggerManager.setErrorLog(e);
 		} finally {
 			if (writer_part1 != null) {
 				writer_part1.close();
@@ -173,6 +176,7 @@ public class DBFUtil implements Runnable{
 				} catch (IOException e) {
 					// TODO 自动生成的 catch 块
 					e.printStackTrace();
+					LoggerManager.setErrorLog(e);
 				}
 			}
 			if (writer_part2 != null) {
@@ -184,6 +188,7 @@ public class DBFUtil implements Runnable{
 				} catch (IOException e) {
 					// TODO 自动生成的 catch 块
 					e.printStackTrace();
+					LoggerManager.setErrorLog(e);
 				}
 			}
 		}
@@ -232,7 +237,7 @@ public class DBFUtil implements Runnable{
 ////					+ " and a.FPRN = '00175611'"
 ////            		+ " where a.FPRN = '00175611'"
 //					+ "";//查询test表
-//           System.out.println(sql); 
+//           //System.out.println(sql); 
 //            statement = con.prepareStatement(sql);
 //	        con.setAutoCommit(false);
 ////		    insert_stm = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -276,9 +281,9 @@ public class DBFUtil implements Runnable{
 //            // 获取病人字段属性
 //            Field[] fields = patient.getClass().getDeclaredFields();
 //            while(res.next()){
-////            	System.out.println("-----------------开始处理第" + res.getRow() + "条数据");
+////            	//System.out.println("-----------------开始处理第" + res.getRow() + "条数据");
 //            	DataTranDemo.row++;
-//            	System.out.println("-----------------开始处理第" + DataTranDemo.row + "条数据");
+//            	//System.out.println("-----------------开始处理第" + DataTranDemo.row + "条数据");
 //            	for (int i = 0; i < fields.length; i++) {
 //            		columnName = fields[i].getName();
 //            		if (columnName == "columnMap" || columnName == "bigint_flag" || columnName == "lenth_map") {
@@ -292,8 +297,8 @@ public class DBFUtil implements Runnable{
 //            	// ---------------- 诊断 ---------------------------
 //            	// 创建诊断SQL
 //            	diagnose_sql = "select FICDM 主要诊断编码,fsxzd 主要诊断疾病描述,FRYBQBH 主要诊断入院病情,FZLJGBH 主要诊断出院情况 from HIS_BA3 where FPRN = '" + patient.getP3() + "' order by FZDLX asc";
-//            	System.out.println("病人病案号" + patient.getP3());
-////            	System.out.println(diagnose_sql);
+//            	//System.out.println("病人病案号" + patient.getP3());
+////            	//System.out.println(diagnose_sql);
 //            	diagnose_statement = con.prepareStatement(diagnose_sql);
 //            	diagnose_res = diagnose_statement.executeQuery();
 //            	while (diagnose_res.next()) {
@@ -346,7 +351,7 @@ public class DBFUtil implements Runnable{
 //            			"when FQIEKOUBH = 3 and FYUHEBH = 1 then 7 when FQIEKOUBH = 3 and FYUHEBH = 2 then 8 when FQIEKOUBH = 3 and FYUHEBH = 3 then 9 when FQIEKOUBH = 3 and FYUHEBH is null or FYUHEBH = 4 then 12\r\n" + 
 //            			" end 切口愈合等级,FMZDOCT 麻醉医师\r\n" + 
 //            			"from TOPERATION t left join [13.18.1.150].THIS4.dbo.SS_SSDJK s on t.FPRN = s.blh collate Chinese_PRC_CI_AS where t.FPRN = '" + patient.getP3() + "';";
-////            	System.out.println(operation_sql);
+////            	//System.out.println(operation_sql);
 //            	operation_statement = con.prepareStatement(operation_sql);
 //            	operation_res = operation_statement.executeQuery();
 //            	while (operation_res.next()) {
@@ -380,7 +385,7 @@ public class DBFUtil implements Runnable{
 //                		getMethod = o_invoke.getMethod("set" + operation.getOper_flag()[row][12], new Class[] {String.class});
 //                		getMethod.invoke(operation, operation_res.getString("麻醉医师"));
 //            	}
-//            	System.out.println("-----------------第" + DataTranDemo.row + "条数据读取完毕");
+//            	//System.out.println("-----------------第" + DataTranDemo.row + "条数据读取完毕");
 //
 //            	// 开始插入数据库
 //            	columnName = null;
@@ -525,12 +530,12 @@ public class DBFUtil implements Runnable{
 ////                	dbf_fields[i + count_j + count_k].setLength(BCConvert.getLenth(patient.getLenthMap(), columnName, String.valueOf(value)));
 //                }
 //                String sql_to_insert = insert_SQL.substring(0, insert_SQL.length() - 1) + ")" + values_SQL.substring(0, values_SQL.length() - 1) + ");";
-//            	System.out.println("-----------------第" + DataTranDemo.row + "条数据插入SQL生成完成，开始插入数据库");
-//                System.out.println(sql_to_insert);
+//            	//System.out.println("-----------------第" + DataTranDemo.row + "条数据插入SQL生成完成，开始插入数据库");
+//                //System.out.println(sql_to_insert);
 //            	insert_statement = con.prepareStatement(sql_to_insert);
 //            	insert_statement.executeUpdate();
 ////                insert_stm.addBatch(sql_to_insert);
-//            	System.out.println("-----------------第" + DataTranDemo.row + "条数据插入数据库成功");
+//            	//System.out.println("-----------------第" + DataTranDemo.row + "条数据插入数据库成功");
 //            	
 ////            	if (beenSetted) {
 ////                	writer.setFields(dbf_fields);

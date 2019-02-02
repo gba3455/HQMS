@@ -14,7 +14,8 @@
 	<classpathentry kind="lib" path="D:/eclipse-workspace/testdatatran/lib/javadbf-1.5.0.jar"/>
 	<classpathentry kind="lib" path="D:/eclipse-workspace/testdatatran/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="D:/eclipse-workspace/testdatatran/lib/mysql-connector-java-5.1.39-bin.jar"/>
-	<classpathentry kind="lib" path="D:/eclipse-workspace/testdatatran/lib/log4j-api-2.11.1.jar"/>
-	<classpathentry kind="lib" path="D:/eclipse-workspace/testdatatran/lib/log4j-core-2.11.1.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse-workspace/testdatatran/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse-workspace/testdatatran/lib/activation.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse-workspace/testdatatran/lib/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -23,7 +23,10 @@ public class CONFIG {
 	public final static int Column_Num_part2 = 94; // Part1内的P3和P20在前2位
 	
 	// 是否显示日志
-	public final static boolean SHOW_LOG = false;
+	public final static boolean SHOW_SQL_LOG = true;
+	
+	// 日志输出地址
+	public final static String LOG_PATH = "D:/hqms/log/";
 	//用户名
 	public final static String USER="zzsdsyy_hqms"; 
 	//密码

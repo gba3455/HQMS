@@ -11,24 +11,25 @@ public class ExecuteManager implements Runnable {
 	@Override
 	public void run() {
 		// TODO 自动生成的方法存根
-		System.out.println("当前执行任务时间：" + Util.getNowTime());
+		LoggerManager.setInfoLog("当前执行任务时间：" + Util.getNowTime());
 		boolean canBeUse = JDBCUtil.canUse();
-		System.out.println("系统使用权限：" + canBeUse);
+		LoggerManager.setInfoLog("系统使用权限：" + canBeUse);
 		if (!canBeUse) {
 			System.out.println("当前系统使用权限关闭，无法使用。");
+			LoggerManager.setErrorLog("当前系统使用权限关闭，无法使用。");
 			System.exit(-1);
 		}
-		System.out.println(" 验证通过，程序开始执行！");
+		LoggerManager.setInfoLog(" 验证通过，程序开始执行！");
 		ExecutorService exec = Executors.newCachedThreadPool();
 		long begin = System.currentTimeMillis(); 
 		//Starting Clean up template
 		if (CONFIG.CleanTable) {
-			System.out.println("开始清空template表");
+			LoggerManager.setInfoLog("开始清空template表");
 			boolean isClean = JDBCUtil.CleanUpTable(CONFIG.dataTable);
 			if (isClean) {
-				System.out.println("清空template表成功");
+				LoggerManager.setInfoLog("清空template表成功");
 			} else {
-				System.out.println("template表内无数据");
+				LoggerManager.setWarnLog("template表内无数据");
 			}
 		}
 		
@@ -57,6 +58,7 @@ public class ExecuteManager implements Runnable {
 			} catch (InterruptedException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
+				LoggerManager.setErrorLog(e);
 			}
 		} else {
 			JDBCUtil util = new JDBCUtil();
@@ -67,6 +69,7 @@ public class ExecuteManager implements Runnable {
 			} catch (InterruptedException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
+				LoggerManager.setErrorLog(e);
 			}
 		}
 		
@@ -77,6 +80,7 @@ public class ExecuteManager implements Runnable {
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
+			LoggerManager.setErrorLog(e);
 		}
 //        final long end = System.currentTimeMillis();
 //        System.out.println((end-begin)/1000);
