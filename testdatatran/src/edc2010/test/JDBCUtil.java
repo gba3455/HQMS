@@ -66,7 +66,12 @@ String sql = "select hqms_can_use "
             try {
                 if(res != null) res.close();
                 if(statement != null) statement.close();
-                if(con != null) con.commit();con.close();
+                if(con != null) {
+                	if (!con.getAutoCommit()) {
+                		con.commit();
+                	}
+                	con.close();
+                }
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
@@ -104,7 +109,12 @@ String sql = "select count(*) as COUNT "
             try {
                 if(res != null) res.close();
                 if(statement != null) statement.close();
-                if(con != null) con.commit();con.close();
+                if(con != null) {
+                	if (!con.getAutoCommit()) {
+                		con.commit();
+                	}
+                	con.close();
+                }
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
@@ -131,13 +141,20 @@ String sql = "delete from " + tableName;//查询test表
             }
         } catch (Exception e) {
             // TODO: handle exception
-            e.printStackTrace();
-			LoggerManager.setErrorLog(e);
+        	if (e.getMessage() != "该语句没有返回结果集。") {
+                e.printStackTrace();
+    			LoggerManager.setErrorLog(e);
+        	}
         }finally{
             try {
                 if(res != null) res.close();
                 if(statement != null) statement.close();
-                if(con != null) con.commit();con.close();
+                if(con != null) {
+                	if (!con.getAutoCommit()) {
+                		con.commit();
+                	}
+                	con.close();
+                }
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
@@ -841,6 +858,7 @@ String sql = "select P900,\r\n" +
 			} catch (SQLException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
+                SendWechatMsg.sendMsg("JDBCUtil", e1.getMessage(), Util.getNowTime());
 				LoggerManager.setErrorLog(e1);
 			}
             e.printStackTrace();
@@ -849,11 +867,17 @@ String sql = "select P900,\r\n" +
             try {
                 if(res != null) res.close();
                 if(statement != null) statement.close();
-                if(con != null) con.commit();con.close();
+                if(con != null) {
+                	if (!con.getAutoCommit()) {
+                		con.commit();
+                	}
+                	con.close();
+                }
                 if(fos != null) fos.close();
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
+                SendWechatMsg.sendMsg("JDBCUtil", e2.getMessage(), Util.getNowTime());
 				LoggerManager.setErrorLog(e2);
             }
         }

@@ -21,7 +21,7 @@ public class ExecuteManager implements Runnable {
 		}
 		LoggerManager.setInfoLog(" 验证通过，程序开始执行！");
 		ExecutorService exec = Executors.newCachedThreadPool();
-		long begin = System.currentTimeMillis(); 
+//		long begin = System.currentTimeMillis(); 
 		//Starting Clean up template
 		if (CONFIG.CleanTable) {
 			LoggerManager.setInfoLog("开始清空template表");
@@ -29,7 +29,7 @@ public class ExecuteManager implements Runnable {
 			if (isClean) {
 				LoggerManager.setInfoLog("清空template表成功");
 			} else {
-				LoggerManager.setWarnLog("template表内无数据");
+				LoggerManager.setInfoLog("template表内无数据");
 			}
 		}
 		
@@ -75,12 +75,28 @@ public class ExecuteManager implements Runnable {
 		
 		// 开始读取template数据库
 		ResultSet res = JDBCUtil.GetTableData(CONFIG.dataTable);
+		boolean DBFCreateStatus = false;
 		try {
-			DBFUtil.DoDBF(res);
+			DBFCreateStatus = DBFUtil.DoDBF(res);
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			LoggerManager.setErrorLog(e);
+		}
+		if (DBFCreateStatus) {
+			try {
+				SendWechatMsg.sendMsg("HQMS数据上报情况通知", Util.getNowDate() + "上报数据生成成功", Util.getNowTime());
+			} catch (Exception e) {
+				e.printStackTrace();
+				LoggerManager.setErrorLog(e);
+			}
+		} else {
+			try {
+				SendWechatMsg.sendMsg("HQMS数据上报情况通知", Util.getNowDate() + "上报数据生成失败", Util.getNowTime());
+			} catch (Exception e) {
+				e.printStackTrace();
+				LoggerManager.setErrorLog(e);
+			}
 		}
 //        final long end = System.currentTimeMillis();
 //        System.out.println((end-begin)/1000);

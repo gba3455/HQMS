@@ -3,18 +3,11 @@ package edc2010.test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.nio.charset.Charset;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import edc2010.test.Patient.P_Diagnose;
-import edc2010.test.Patient.P_Operation;
 
 public class DBFUtil implements Runnable{
 
@@ -31,7 +24,7 @@ public class DBFUtil implements Runnable{
 	}
     
 
-	public static void DoDBF(ResultSet res) {
+	public static boolean DoDBF(ResultSet res) {
 		DBFField dbf_fields_part1[] = new DBFField[CONFIG.Column_Num_part1];
 		DBFField dbf_fields_part2[] = new DBFField[CONFIG.Column_Num_part2];
         DBFWriter writer_part1 = null;
@@ -192,6 +185,7 @@ public class DBFUtil implements Runnable{
 				}
 			}
 		}
+		return true;
 	}
 
     @Override

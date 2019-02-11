@@ -40,4 +40,9 @@ public class CONFIG {
 	// 是否多线程
 	public final static boolean IsMultiThread = true;
 	
+	// 飞鸽
+	public final static String secret = "26ef06f62deeb2c26cf8f0c5e908d7de";
+	public final static String token = "dc6438fc7b6c20efd4b6071db04224c9";
+	public final static String template_id = "LwKYoC6h87akctOEqQV74lcZgJKuQzSFQv6JkVsth-A";
+	
 }
