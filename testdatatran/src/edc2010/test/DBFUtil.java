@@ -120,10 +120,12 @@ public class DBFUtil implements Runnable{
 	    	writer_part2.setFields(dbf_fields_part2);
 	    	writer_part2.setCharset(Charset.forName(CONFIG.encode));
 	        while(res.next()){
-//	        	//System.out.println(res.getString("P3"));
-	        	LoggerManager.setInfoLog(res.getString("P3"));
-//	        	//System.out.println("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
-	        	LoggerManager.setInfoLog("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
+	        	if (CONFIG.SHOW_DBF_LOG) {
+//		        	//System.out.println(res.getString("P3"));
+		        	LoggerManager.setInfoLog(res.getString("P3"));
+//		        	//System.out.println("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
+		        	LoggerManager.setInfoLog("-----------------开始处理DBF文件。第" + res.getRow() + "条数据");
+	        	}
 	        	
 	        	// ---------------- 读取part1 ---------------------------
 	        	
