@@ -280,7 +280,6 @@ public class Util {
 				}
 			}
 			case_when += " end ";
-			System.out.println( case_when );
 			return case_when;
 		}
 }

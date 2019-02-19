@@ -24,7 +24,7 @@ public class CONFIG {
 	public final static int Column_Num_part2 = 94; // Part1内的P3和P20在前2位
 	
 	// 是否显示SQL日志
-	public final static boolean SHOW_SQL_LOG = true;
+	public final static boolean SHOW_SQL_LOG = false;
 	
 	// 是否显示DBF生成日志
 	public final static boolean SHOW_DBF_LOG = false;
