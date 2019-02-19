@@ -214,7 +214,7 @@ public class DataTranDemo {
 	                        future.get();
 	                    } catch (Exception e) {
 	                        System.out.println(e.getCause().getMessage());//日志信息输出
-	                        SendWechatMsg.sendMsg("main", e.getCause().getMessage(), Util.getNowTime());
+	                        SendWechatMsg.sendMsg("main", e.getMessage(), Util.getNowTime());
 	                        LoggerManager.setErrorLog(e.getCause().getMessage());
 	                        future.cancel(false);//关闭线程
 	                    }
