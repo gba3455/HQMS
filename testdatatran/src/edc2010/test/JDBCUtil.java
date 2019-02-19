@@ -170,351 +170,23 @@ String sql = "delete from " + tableName;//查询test表
         ResultSet res = null;
         try {
             // SQL
-String sql = "select P900,\r\n" + 
-		"P6891,\r\n" + 
-		"P686,\r\n" + 
-		"P800,\r\n" + 
-		"P1,\r\n" + 
-		"P2,\r\n" + 
-		"P3,\r\n" + 
-		"P4,\r\n" + 
-		"P5,\r\n" + 
-		"CONVERT(varchar(100), P6,23) P6,\r\n" + 
-		"P7,\r\n" + 
-		"P8,\r\n" + 
-		"P9,\r\n" + 
-		"P101,\r\n" + 
-		"P102,\r\n" + 
-		"P103,\r\n" + 
-		"P11,\r\n" + 
-		"P12,\r\n" + 
-		"P13,\r\n" + 
-		"P801,\r\n" + 
-		"P802,\r\n" + 
-		"P803,\r\n" + 
-		"P14,\r\n" + 
-		"P15,\r\n" + 
-		"P16,\r\n" + 
-		"P17,\r\n" + 
-		"P171,\r\n" + 
-		"P18,\r\n" + 
-		"P19,\r\n" + 
-		"P20,\r\n" + 
-		"P804,\r\n" + 
-		"P21,\r\n" + 
-		"CONVERT(varchar(100),P22,20) P22,\r\n" + 
-		"P23,\r\n" + 
-		"P231,\r\n" + 
-		"P24,\r\n" + 
-		"CONVERT(varchar(100),P25,20) P25,\r\n" + 
-		"P26,\r\n" + 
-		"P261,\r\n" + 
-		"P27,\r\n" + 
-		"P28,\r\n" + 
-		"P281,\r\n" + 
-		"P29,\r\n" + 
-		"P30,\r\n" + 
-		"P301,\r\n" + 
-		"CONVERT(varchar(100),P31,23) P31,\r\n" + 
-		"P321,\r\n" + 
-		"P322,\r\n" + 
-		"P805,\r\n" + 
-		"P323,\r\n" + 
-		"P324,\r\n" + 
-		"P325,\r\n" + 
-		"P806,\r\n" + 
-		"P326,\r\n" + 
-		"P327,\r\n" + 
-		"P328,\r\n" + 
-		"P807,\r\n" + 
-		"P329,\r\n" + 
-		"P3291,\r\n" + 
-		"P3292,\r\n" + 
-		"P808,\r\n" + 
-		"P3293,\r\n" + 
-		"P3294,\r\n" + 
-		"P3295,\r\n" + 
-		"P809,\r\n" + 
-		"P3296,\r\n" + 
-		"P3297,\r\n" + 
-		"P3298,\r\n" + 
-		"P810,\r\n" + 
-		"P3299,\r\n" + 
-		"P3281,\r\n" + 
-		"P3282,\r\n" + 
-		"P811,\r\n" + 
-		"P3283,\r\n" + 
-		"P3284,\r\n" + 
-		"P3285,\r\n" + 
-		"P812,\r\n" + 
-		"P3286,\r\n" + 
-		"P3287,\r\n" + 
-		"P3288,\r\n" + 
-		"P813,\r\n" + 
-		"P3289,\r\n" + 
-		"P3271,\r\n" + 
-		"P3272,\r\n" + 
-		"P814,\r\n" + 
-		"P3273,\r\n" + 
-		"P3274,\r\n" + 
-		"P3275,\r\n" + 
-		"P815,\r\n" + 
-		"P3276,\r\n" + 
-		"P689,\r\n" + 
-		"P351,\r\n" + 
-		"P352,\r\n" + 
-		"P816,\r\n" + 
-		"P353,\r\n" + 
-		"P354,\r\n" + 
-		"P817,\r\n" + 
-		"P355,\r\n" + 
-		"P356,\r\n" + 
-		"P818,\r\n" + 
-		"P361,\r\n" + 
-		"P362,\r\n" + 
-		"P363,\r\n" + 
-		"P364,\r\n" + 
-		"P365,\r\n" + 
-		"P366,\r\n" + 
-		"P371,\r\n" + 
-		"P372,\r\n" + 
-		"P38,\r\n" + 
-		"P39,\r\n" + 
-		"P40,\r\n" + 
-		"P411,\r\n" + 
-		"P412,\r\n" + 
-		"P413,\r\n" + 
-		"P414,\r\n" + 
-		"P415,\r\n" + 
-		"P421,\r\n" + 
-		"P422,\r\n" + 
-		"P687,\r\n" + 
-		"P688,\r\n" + 
-		"P431,\r\n" + 
-		"P432,\r\n" + 
-		"P433,\r\n" + 
-		"P434,\r\n" + 
-		"P819,\r\n" + 
-		"P435,\r\n" + 
-		"P436,\r\n" + 
-		"P437,\r\n" + 
-		"P438,\r\n" + 
-		"P44,\r\n" + 
-		"P45,\r\n" + 
-		"P46,\r\n" + 
-		"CONVERT(varchar(100),P47,23) P47,\r\n" + 
-		"P490,\r\n" + 
-		"CONVERT(varchar(100),P491,20) P491,\r\n" + 
-		"P820,\r\n" + 
-		"P492,\r\n" + 
-		"P493,\r\n" + 
-		"P494,\r\n" + 
-		"P495,\r\n" + 
-		"P496,\r\n" + 
-		"P497,\r\n" + 
-		"P498,\r\n" + 
-		"P4981,\r\n" + 
-		"P499,\r\n" + 
-		"P4910,\r\n" + 
-		"P4911,\r\n" + 
-		"CONVERT(varchar(100),P4912,20) P4912,\r\n" + 
-		"P821,\r\n" + 
-		"P4913,\r\n" + 
-		"P4914,\r\n" + 
-		"P4915,\r\n" + 
-		"P4916,\r\n" + 
-		"P4917,\r\n" + 
-		"P4918,\r\n" + 
-		"P4919,\r\n" + 
-		"P4982,\r\n" + 
-		"P4920,\r\n" + 
-		"P4921,\r\n" + 
-		"P4922,\r\n" + 
-		"CONVERT(varchar(100),P4923,20) P4923,\r\n" + 
-		"P822,\r\n" + 
-		"P4924,\r\n" + 
-		"P4925,\r\n" + 
-		"P4526,\r\n" + 
-		"P4527,\r\n" + 
-		"P4528,\r\n" + 
-		"P4529,\r\n" + 
-		"P4530,\r\n" + 
-		"P4983,\r\n" + 
-		"P4531,\r\n" + 
-		"P4532,\r\n" + 
-		"P4533,\r\n" + 
-		"CONVERT(varchar(100),P4534,20) P4534,\r\n" + 
-		"P823,\r\n" + 
-		"P4535,\r\n" + 
-		"P4536,\r\n" + 
-		"P4537,\r\n" + 
-		"P4538,\r\n" + 
-		"P4539,\r\n" + 
-		"P4540,\r\n" + 
-		"P4541,\r\n" + 
-		"P4984,\r\n" + 
-		"P4542,\r\n" + 
-		"P4543,\r\n" + 
-		"P4544,\r\n" + 
-		"CONVERT(varchar(100),P4545,20) P4545,\r\n" + 
-		"P824,\r\n" + 
-		"P4546,\r\n" + 
-		"P4547,\r\n" + 
-		"P4548,\r\n" + 
-		"P4549,\r\n" + 
-		"P4550,\r\n" + 
-		"P4551,\r\n" + 
-		"P4552,\r\n" + 
-		"P4985,\r\n" + 
-		"P4553,\r\n" + 
-		"P4554,\r\n" + 
-		"P45002,\r\n" + 
-		"CONVERT(varchar(100),P45003,20) P45003,\r\n" + 
-		"P825,\r\n" + 
-		"P45004,\r\n" + 
-		"P45005,\r\n" + 
-		"P45006,\r\n" + 
-		"P45007,\r\n" + 
-		"P45008,\r\n" + 
-		"P45009,\r\n" + 
-		"P45010,\r\n" + 
-		"P45011,\r\n" + 
-		"P45012,\r\n" + 
-		"P45013,\r\n" + 
-		"P45014,\r\n" + 
-		"CONVERT(varchar(100),p45015,20) p45015,\r\n" + 
-		"P826,\r\n" + 
-		"P45016,\r\n" + 
-		"P45017,\r\n" + 
-		"P45018,\r\n" + 
-		"P45019,\r\n" + 
-		"P45020,\r\n" + 
-		"P45021,\r\n" + 
-		"P45022,\r\n" + 
-		"P45023,\r\n" + 
-		"P45024,\r\n" + 
-		"P45025,\r\n" + 
-		"P45026,\r\n" + 
-		"CONVERT(varchar(100),p45027,20) p45027,\r\n" + 
-		"P827,\r\n" + 
-		"P45028,\r\n" + 
-		"P45029,\r\n" + 
-		"P45030,\r\n" + 
-		"P45031,\r\n" + 
-		"P45032,\r\n" + 
-		"P45033,\r\n" + 
-		"P45034,\r\n" + 
-		"P45035,\r\n" + 
-		"P45036,\r\n" + 
-		"P45037,\r\n" + 
-		"P45038,\r\n" + 
-		"CONVERT(varchar(100),p45039,20) p45039,\r\n" + 
-		"P828,\r\n" + 
-		"P45040,\r\n" + 
-		"P45041,\r\n" + 
-		"P45042,\r\n" + 
-		"P45043,\r\n" + 
-		"P45044,\r\n" + 
-		"P45045,\r\n" + 
-		"P45046,\r\n" + 
-		"P45047,\r\n" + 
-		"P45048,\r\n" + 
-		"P45049,\r\n" + 
-		"P45050,\r\n" + 
-		"CONVERT(varchar(100),p45051,20) p45051,\r\n" + 
-		"P829,\r\n" + 
-		"P45052,\r\n" + 
-		"P45053,\r\n" + 
-		"P45054,\r\n" + 
-		"P45055,\r\n" + 
-		"P45056,\r\n" + 
-		"P45057,\r\n" + 
-		"P45058,\r\n" + 
-		"P45059,\r\n" + 
-		"P45060,\r\n" + 
-		"P45061,\r\n" + 
-		"P561,\r\n" + 
-		"P562,\r\n" + 
-		"P563,\r\n" + 
-		"P564,\r\n" + 
-		"P6911,\r\n" + 
-		"P6912,\r\n" + 
-		"P6913,\r\n" + 
-		"P6914,\r\n" + 
-		"P6915,\r\n" + 
-		"P6916,\r\n" + 
-		"P6917,\r\n" + 
-		"P6918,\r\n" + 
-		"P6919,\r\n" + 
-		"P6920,\r\n" + 
-		"P6921,\r\n" + 
-		"P6922,\r\n" + 
-		"P6923,\r\n" + 
-		"P6924,\r\n" + 
-		"P6925,\r\n" + 
-		"P57,\r\n" + 
-		"P58,\r\n" + 
-		"P581,\r\n" + 
-		"P60,\r\n" + 
-		"P611,\r\n" + 
-		"P612,\r\n" + 
-		"P613,\r\n" + 
-		"P59,\r\n" + 
-		"P62,\r\n" + 
-		"P63,\r\n" + 
-		"P64,\r\n" + 
-		"P651,\r\n" + 
-		"P652,\r\n" + 
-		"P653,\r\n" + 
-		"P654,\r\n" + 
-		"P655,\r\n" + 
-		"P656,\r\n" + 
-		"P66,\r\n" + 
-		"P681,\r\n" + 
-		"P682,\r\n" + 
-		"P683,\r\n" + 
-		"P684,\r\n" + 
-		"P685,\r\n" + 
-		"P67,\r\n" + 
-		"P731,\r\n" + 
-		"P732,\r\n" + 
-		"P733,\r\n" + 
-		"P734,\r\n" + 
-		"P72,\r\n" + 
-		"P830,\r\n" + 
-		"P831,\r\n" + 
-		"P741,\r\n" + 
-		"P742,\r\n" + 
-		"P743,\r\n" + 
-		"P782,\r\n" + 
-		"P751,\r\n" + 
-		"P752,\r\n" + 
-		"P754,\r\n" + 
-		"P755,\r\n" + 
-		"P756,\r\n" + 
-		"P757,\r\n" + 
-		"P758,\r\n" + 
-		"P759,\r\n" + 
-		"P760,\r\n" + 
-		"P761,\r\n" + 
-		"P762,\r\n" + 
-		"P763,\r\n" + 
-		"P764,\r\n" + 
-		"P765,\r\n" + 
-		"P767,\r\n" + 
-		"P768,\r\n" + 
-		"P769,\r\n" + 
-		"P770,\r\n" + 
-		"P771,\r\n" + 
-		"P772,\r\n" + 
-		"P773,\r\n" + 
-		"P774,\r\n" + 
-		"P775,\r\n" + 
-		"P776,\r\n" + 
-		"P777,\r\n" + 
-		"P778,\r\n" + 
-		"P779,\r\n" + 
-		"P780,\r\n" + 
+        	String sql = "select P900,P6891,P686,P800,P1,P2,P3,P4,P5,CONVERT(varchar(100), P6,23) P6,P7,P8,P9,P101,P102,P103,P11,P12,P13,P801,P802,P803,P14,P15,P16,"
+        			+ "P17,P171,P18,P19,P20,P804,P21,CONVERT(varchar(100),P22,20) P22,P23,P231,P24,CONVERT(varchar(100),P25,20) P25,P26,P261,P27,P28,P281,P29,P30,"
+        			+ "P301,CONVERT(varchar(100),P31,23) P31,P321,P322,P805,P323,P324,P325,P806,P326,P327,P328,P807,P329,P3291,P3292,P808,P3293,P3294,P3295,P809,"
+        			+ "P3296,P3297,P3298,P810,P3299,P3281,P3282,P811,P3283,P3284,P3285,P812,P3286,P3287,P3288,P813,P3289,P3271,P3272,P814,P3273,P3274,P3275,P815,"
+        			+ "P3276,P689,P351,P352,P816,P353,P354,P817,P355,P356,P818,P361,P362,P363,P364,P365,P366,P371,P372,P38,P39,P40,P411,P412,P413,P414,P415,P421,"
+        			+ "P422,P687,P688,P431,P432,P433,P434,P819,P435,P436,P437,P438,P44,P45,P46,CONVERT(varchar(100),P47,23) P47,P490,CONVERT(varchar(100),P491,20) P491,"
+        			+ "P820,P492,P493,P494,P495,P496,P497,P498,P4981,P499,P4910,P4911,CONVERT(varchar(100),P4912,20) P4912,P821,P4913,P4914,P4915,P4916,P4917,P4918,"
+        			+ "P4919,P4982,P4920,P4921,P4922,CONVERT(varchar(100),P4923,20) P4923,P822,P4924,P4925,P4526,P4527,P4528,P4529,P4530,P4983,P4531,P4532,P4533,"
+        			+ "CONVERT(varchar(100),P4534,20) P4534,P823,P4535,P4536,P4537,P4538,P4539,P4540,P4541,P4984,P4542,P4543,P4544,CONVERT(varchar(100),P4545,20) P4545,"
+        			+ "P824,P4546,P4547,P4548,P4549,P4550,P4551,P4552,P4985,P4553,P4554,P45002,CONVERT(varchar(100),P45003,20) P45003,P825,P45004,P45005,P45006,P45007,"
+        			+ "P45008,P45009,P45010,P45011,P45012,P45013,P45014,CONVERT(varchar(100),p45015,20) p45015,P826,P45016,P45017,P45018,P45019,P45020,P45021,P45022,"
+        			+ "P45023,P45024,P45025,P45026,CONVERT(varchar(100),p45027,20) p45027,P827,P45028,P45029,P45030,P45031,P45032,P45033,P45034,P45035,P45036,P45037,"
+        			+ "P45038,CONVERT(varchar(100),p45039,20) p45039,P828,P45040,P45041,P45042,P45043,P45044,P45045,P45046,P45047,P45048,P45049,P45050,CONVERT(varchar(100),"
+        			+ "p45051,20) p45051,P829,P45052,P45053,P45054,P45055,P45056,P45057,P45058,P45059,P45060,P45061,P561,P562,P563,P564,P6911,P6912,P6913,P6914,P6915,P6916,"
+        			+ "P6917,P6918,P6919,P6920,P6921,P6922,P6923,P6924,P6925,P57,P58,P581,P60,P611,P612,P613,P59,P62,P63,P64,P651,P652,P653,P654,P655,P656,P66,P681,P682,P683,"
+        			+ "P684,P685,P67,P731,P732,P733,P734,P72,P830,P831,P741,P742,P743,P782,P751,P752,P754,P755,P756,P757,P758,P759,P760,P761,P762,P763,P764,P765,P767,P768,P769,"
+        			+ "P770,P771,P772,P773,P774,P775,P776,P777,P778,P779,P780," + 
 		"P782 - P752 - P754 - P755 -P756-P757-P758-P759-P760-P761-P763-P767-P768-P769 -P771-P772-P773-P774-P775-P776-P777-P778-P779-P780 P781 from " + tableName;//查询test表
 		if (CONFIG.SHOW_SQL_LOG) {
 			LoggerManager.setInfoLog(sql);
@@ -555,14 +227,22 @@ String sql = "select P900,\r\n" +
         try {
             // SQL
         	if (CONFIG.IsMultiThread) {
-        		sql = "select * from (select row_number() over (order by a.FPRN) as rowNum, '48965210-X' 医疗机构代码P900,'漳州市第三医院' 机构名称P6891,'' \"医疗保险手册（卡号）P686\",a.FASCARD1 健康卡号P800,case when LEN(a.FFBBHNEW) > 1 then SUBSTRING(a.FFBBHNEW,2,1) when LEN(a.FFBBHNEW) < 1 then 7 when a.FFBBHNEW is null then 7 else a.FFBBHNEW end 医疗付款方式P1,a.FFBNEW 医疗付款方式代码,a.FTIMES 住院次数P2,a.FPRN 病案号P3,a.FNAME 姓名P4,a.FSEXBH 性别P5,a.FSEX 性别代码,CONVERT(varchar(100), a.FBIRTHDAY,23) 出生日期P6,FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) as ddd,case when FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) > 0 then FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) else null end 年龄P7,case when a.FSTATUSBH = '' or a.FSTATUSBH = NULL then '9' else a.FSTATUSBH end 婚姻状况P8,case when a.FJOBBH = 11 then 11 when a.FJOBBH = 13 then 13 when a.FJOBBH = 17 then 17 when a.FJOBBH = 21 then 21 when a.FJOBBH = 24 then 24 when a.FJOBBH = 27 then 27 when a.FJOBBH = 31 then 31 when a.FJOBBH = 37 then 37 when a.FJOBBH = 51 then 51 when a.FJOBBH = 54 then 54 when a.FJOBBH = 70 then 70 when a.FJOBBH = 80 then 80 when a.FJOBBH = 90 then 90 else 00 end 职业P9,case when PATINDEX('%省%',a.FBIRTHPLACE) > 0 then left(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生省份P101,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)+1,PATINDEX('%市%',a.FBIRTHPLACE)-PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生地市P102,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%市%',a.FBIRTHPLACE)+1,LEN(a.FBIRTHPLACE)) else a.FBIRTHPLACE end 出生地县P103,a.FNATIONALITY 民族P11,a.FCOUNTRY 国籍P12,a.FIDCARD 身份证号P13,a.FCURRADDR 现住址P801,a.FCURRTELE 住宅电话P802,a.FCURRPOST 现住址邮政编码P803,a.FDWADDR+a.FDWNAME 工作单位及地址P14,a.FDWTELE 电话P15,a.FDWPOST 工作单位邮政编码P16,a.FHKADDR 户口地址P17,a.FHKPOST 户口所在地邮政编码P171,a.FLXNAME 联系人姓名P18,case when a.FRELATE = '配偶' then 1 when a.FRELATE = '子' then 2 when a.FRELATE = '女' then 3 when a.FRELATE = '孙子、孙女或外孙子、外孙女' then 4 when a.FRELATE = '父母' then 5 when a.FRELATE = '祖父母或外祖父母' then 6 when a.FRELATE = '兄、弟、姐、妹' then 7 else 8 end 关系P19,a.FLXADDR 联系人地址P20,case when a.FRYTJBH is null then 4 when a.FRYTJBH = '' then 4 when a.FRYTJBH = 9 then 4 else a.FRYTJBH end 入院途径P804,a.FLXTELE 联系人电话P21,CONVERT(varchar(100),a.FRYDATE,20) 入院日期P22,"
-        				+ "case when a.FRYDEPT= '医院感染管理科' then '16' when a.FRYDEPT= '急诊医学科' then '20' when a.FRYDEPT= '门诊输液室' then '20' when a.FRYDEPT= '疼痛科门诊' then '27' when a.FRYDEPT= '麻醉科' then '26' when a.FRYDEPT= '手术室' then '26' when a.FRYDEPT= '中医科' then '50' when a.FRYDEPT= '中医科门诊' then '50' when a.FRYDEPT= '康复科' then '21' when a.FRYDEPT= '康复科门诊' then '21' when a.FRYDEPT= '重症医学科' then '28' when a.FRYDEPT= '呼吸与危重症医学科' then '0301' when a.FRYDEPT= '呼吸与危重症医学科门诊' then '0301' when a.FRYDEPT= '呼吸与危重症医学科' then '0301' when a.FRYDEPT= '呼吸与危重症医学科门诊' then '0301' when a.FRYDEPT= '肾内风湿科' then '0306' when a.FRYDEPT= '肾内风湿科门诊' then '0306' when a.FRYDEPT= '血液透析室' then '0306' when a.FRYDEPT= '心血管内科' then '0304' when a.FRYDEPT= '心血管内科门诊' then '0304' when a.FRYDEPT= '神经内科' then '0303' when a.FRYDEPT= '神经内科门诊' then '0303' when a.FRYDEPT= '消化内科' then '0302' when a.FRYDEPT= '消化内科门诊' then '0302' when a.FRYDEPT= '内分泌科' then '0307' when a.FRYDEPT= '内分泌科门诊' then '0307' when a.FRYDEPT= '普一科' then '0401' when a.FRYDEPT= '普一科门诊' then '0401' when a.FRYDEPT= '普二科' then '0401' when a.FRYDEPT= '普二科门诊' then '0401' when a.FRYDEPT= '乳腺甲状腺外科' then '0409' when a.FRYDEPT= '乳腺甲状腺外科门诊' then '0409' when a.FRYDEPT= '肛肠科' then '0409' when a.FRYDEPT= '肛肠科门诊' then '0409' when a.FRYDEPT= '普外一科' then '0401' when a.FRYDEPT= '普外一科门诊' then '0401' when a.FRYDEPT= '泌尿外科' then '0404' when a.FRYDEPT= '泌尿外科门诊' then '0404' when a.FRYDEPT= '体外震波碎石室' then '0404' when a.FRYDEPT= '泌尿一科' then '0404' when a.FRYDEPT= '泌尿一科门诊' then '0404' when a.FRYDEPT= '泌尿二科' then '0404' when a.FRYDEPT= '泌尿二科门诊' then '0404' when a.FRYDEPT= '神经外科' then '0402' when a.FRYDEPT= '神经外科门诊' then '0402' when a.FRYDEPT= '老年病科' then '0310' when a.FRYDEPT= '老年病科门诊' then '0310' when a.FRYDEPT= '骨科综合门诊' then '0403' when a.FRYDEPT= '骨一科' then '0403' when a.FRYDEPT= '骨一科门诊' then '0403' when a.FRYDEPT= '骨二科' then '0403' when a.FRYDEPT= '骨二科门诊' then '0403' when a.FRYDEPT= '手足外科·慢创治疗科' then '0403' when a.FRYDEPT= '手足外科·慢创治疗科门诊' then '0403' when a.FRYDEPT= '急慢性创口治疗科' then '0409' when a.FRYDEPT= '眼科二' then '10' when a.FRYDEPT= '妇产科' then '05' when a.FRYDEPT= '妇产科门诊' then '05' when a.FRYDEPT= '生殖内分泌科' then '05' when a.FRYDEPT= '妇产一科' then '05' when a.FRYDEPT= '妇产二科' then '05' when a.FRYDEPT= '妇产一科门诊' then '05' when a.FRYDEPT= '妇产二科门诊' then '05' when a.FRYDEPT= '生殖内分泌科门诊' then '0505' when a.FRYDEPT= '儿科' then '07' when a.FRYDEPT= '儿科门诊' then '07' when a.FRYDEPT= '眼科' then '10' when a.FRYDEPT= '眼科门诊' then '10' when a.FRYDEPT= '耳鼻咽喉科' then '11' when a.FRYDEPT= '耳鼻咽喉科门诊' then '11' when a.FRYDEPT= '口腔科' then '12' when a.FRYDEPT= '口腔科门诊' then '12' when a.FRYDEPT= '皮肤科' then '13' when a.FRYDEPT= '皮肤科门诊' then '13' when a.FRYDEPT= '呼吸与结核病科' then '1602' when a.FRYDEPT= '呼吸与结核病科门诊' then '1602' when a.FRYDEPT= '呼吸与结核病科' then '17' when a.FRYDEPT= '呼吸与结核病科门诊' then '17' when a.FRYDEPT= '内科综合门诊' then '5001' when a.FRYDEPT= '院外门诊' then '5001' when a.FRYDEPT= '预防保健科' then '5017' when a.FRYDEPT= '肿瘤科' then '19' when a.FRYDEPT= '肿瘤科门诊' then '19' when a.FRYDEPT= '放射治疗科' then '3210' when a.FRYDEPT= '放射治疗科门诊' then '3210' when a.FRYDEPT= '外科综合门诊' then '04' when a.FRYDEPT= '普外二科' then '0401' when a.FRYDEPT= '普外二科门诊' then '0401' when a.FRYDEPT= '普外三科' then '0401' when a.FRYDEPT= '胸外科' then '0405' when a.FRYDEPT= '普外三科(含胸外)' then '0401' when a.FRYDEPT= '普外三科门诊' then '0401' when a.FRYDEPT= '医学检验科' then '30' when a.FRYDEPT= '病理科' then '31' when a.FRYDEPT= '输血科' then '69' when a.FRYDEPT= '放射科' then '3211' when a.FRYDEPT= '普通放射' then '3201' when a.FRYDEPT= 'CT' then '3202' when a.FRYDEPT= 'MR' then '3203' when a.FRYDEPT= '超声科' then '3205' when a.FRYDEPT= '超声介入' then '3205' when a.FRYDEPT= '心电图室' then '3206' when a.FRYDEPT= '脑电图室' then '3207' when a.FRYDEPT= '脑磁治疗室' then '3207' when a.FRYDEPT= '消化内镜室' then '3211' when a.FRYDEPT= '支气管镜室' then '3211' when a.FRYDEPT= '消毒供应室' then '3211' when a.FRYDEPT= '眼震视图室' then '3211' when a.FRYDEPT= '肺功能室' then '3211' when a.FRYDEPT= '药剂科' then '3211' when a.FRYDEPT= '门诊西药房' then '3211' when a.FRYDEPT= '中药房' then '3211' when a.FRYDEPT= '中心药房' then '3211' when a.FRYDEPT= '西药库' then '3211' when a.FRYDEPT= '中药库' then '3211' when a.FRYDEPT= '健康体检科' then '3211' when a.FRYDEPT= '健检服务部' then '3211' when a.FRYDEPT= '驾照体检' then '3211' when a.FRYDEPT= '驻外体检' then '3211' when a.FRYDEPT= '医学美容科' then '0408' when a.FRYDEPT= '医学美容科门诊' then '0408' when a.FRYDEPT= '生活美容' then '0408' end 入院科别P23," // 入院科别
-        				+ "a.FRYBS 入院病室P231,case when a.FZKDEPT='呼吸内科' then '0301'  when a.FZKDEPT='消化内科' then '0302'when a.FZKDEPT='神经内科' then '0303'when a.FZKDEPT='心血管内科' then '0304'when a.FZKDEPT='肾内风湿科' then '0306'when a.FZKDEPT='内分泌科' then '0307'when a.FZKDEPT='神经外科' then '0402'when a.FZKDEPT like '泌尿%科' then '0404'  when a.FZKDEPT = '肛肠科' then '04'when a.FZKDEPT='妇产二科' then '05'when a.FZKDEPT like '骨%科' then '0403'when a.FZKDEPT = '普外三科(含胸外)' then '0401'when a.FZKDEPT like '普%科' then '0401'when a.FZKDEPT='儿科' then '07'when a.FZKDEPT like '妇产%科' then '05'when a.FZKDEPT like '眼科%' then '10'when a.FZKDEPT like '%外科' then '04'when a.FZKDEPT = '重症医学科' then '28'when a.FZKDEPT = '耳鼻咽喉科' then '11'when a.FZKDEPT = '中医科' then '50'when a.FZKDEPT = '急诊医学科' then '20'end 转科科别P24,CONVERT(varchar(100),a.FCYDATE,20) 出院日期P25,case when a.FCYDEPT= '医院感染管理科' then '16' when a.FCYDEPT= '急诊医学科' then '20' when a.FCYDEPT= '门诊输液室' then '20' when a.FCYDEPT= '疼痛科门诊' then '27' when a.FCYDEPT= '麻醉科' then '26' when a.FCYDEPT= '手术室' then '26' when a.FCYDEPT= '中医科' then '50' when a.FCYDEPT= '中医科门诊' then '50' when a.FCYDEPT= '康复科' then '21' when a.FCYDEPT= '康复科门诊' then '21' when a.FCYDEPT= '重症医学科' then '28' when a.FCYDEPT= '呼吸与危重症医学科' then '0301' when a.FCYDEPT= '呼吸与危重症医学科门诊' then '0301' when a.FCYDEPT= '呼吸与危重症医学科' then '0301' when a.FCYDEPT= '呼吸与危重症医学科门诊' then '0301' when a.FCYDEPT= '肾内风湿科' then '0306' when a.FCYDEPT= '肾内风湿科门诊' then '0306' when a.FCYDEPT= '血液透析室' then '0306' when a.FCYDEPT= '心血管内科' then '0304' when a.FCYDEPT= '心血管内科门诊' then '0304' when a.FCYDEPT= '神经内科' then '0303' when a.FCYDEPT= '神经内科门诊' then '0303' when a.FCYDEPT= '消化内科' then '0302' when a.FCYDEPT= '消化内科门诊' then '0302' when a.FCYDEPT= '内分泌科' then '0307' when a.FCYDEPT= '内分泌科门诊' then '0307' when a.FCYDEPT= '普一科' then '0401' when a.FCYDEPT= '普一科门诊' then '0401' when a.FCYDEPT= '普二科' then '0401' when a.FCYDEPT= '普二科门诊' then '0401' when a.FCYDEPT= '乳腺甲状腺外科' then '0409' when a.FCYDEPT= '乳腺甲状腺外科门诊' then '0409' when a.FCYDEPT= '肛肠科' then '0409' when a.FCYDEPT= '肛肠科门诊' then '0409' when a.FCYDEPT= '普外一科' then '0401' when a.FCYDEPT= '普外一科门诊' then '0401' when a.FCYDEPT= '泌尿外科' then '0404' when a.FCYDEPT= '泌尿外科门诊' then '0404' when a.FCYDEPT= '体外震波碎石室' then '0404' when a.FCYDEPT= '泌尿一科' then '0404' when a.FCYDEPT= '泌尿一科门诊' then '0404' when a.FCYDEPT= '泌尿二科' then '0404' when a.FCYDEPT= '泌尿二科门诊' then '0404' when a.FCYDEPT= '神经外科' then '0402' when a.FCYDEPT= '神经外科门诊' then '0402' when a.FCYDEPT= '老年病科' then '0310' when a.FCYDEPT= '老年病科门诊' then '0310' when a.FCYDEPT= '骨科综合门诊' then '0403' when a.FCYDEPT= '骨一科' then '0403' when a.FCYDEPT= '骨一科门诊' then '0403' when a.FCYDEPT= '骨二科' then '0403' when a.FCYDEPT= '骨二科门诊' then '0403' when a.FCYDEPT= '手足外科·慢创治疗科' then '0403' when a.FCYDEPT= '手足外科·慢创治疗科门诊' then '0403' when a.FCYDEPT= '急慢性创口治疗科' then '0409' when a.FCYDEPT= '眼科二' then '10' when a.FCYDEPT= '妇产科' then '05' when a.FCYDEPT= '妇产科门诊' then '05' when a.FCYDEPT= '生殖内分泌科' then '05' when a.FCYDEPT= '妇产一科' then '05' when a.FCYDEPT= '妇产二科' then '05' when a.FCYDEPT= '妇产一科门诊' then '05' when a.FCYDEPT= '妇产二科门诊' then '05' when a.FCYDEPT= '生殖内分泌科门诊' then '0505' when a.FCYDEPT= '儿科' then '07' when a.FCYDEPT= '儿科门诊' then '07' when a.FCYDEPT= '眼科' then '10' when a.FCYDEPT= '眼科门诊' then '10' when a.FCYDEPT= '耳鼻咽喉科' then '11' when a.FCYDEPT= '耳鼻咽喉科门诊' then '11' when a.FCYDEPT= '口腔科' then '12' when a.FCYDEPT= '口腔科门诊' then '12' when a.FCYDEPT= '皮肤科' then '13' when a.FCYDEPT= '皮肤科门诊' then '13' when a.FCYDEPT= '呼吸与结核病科' then '1602' when a.FCYDEPT= '呼吸与结核病科门诊' then '1602' when a.FCYDEPT= '呼吸与结核病科' then '17' when a.FCYDEPT= '呼吸与结核病科门诊' then '17' when a.FCYDEPT= '内科综合门诊' then '5001' when a.FCYDEPT= '院外门诊' then '5001' when a.FCYDEPT= '预防保健科' then '5017' when a.FCYDEPT= '肿瘤科' then '19' when a.FCYDEPT= '肿瘤科门诊' then '19' when a.FCYDEPT= '放射治疗科' then '3210' when a.FCYDEPT= '放射治疗科门诊' then '3210' when a.FCYDEPT= '外科综合门诊' then '04' when a.FCYDEPT= '普外二科' then '0401' when a.FCYDEPT= '普外二科门诊' then '0401' when a.FCYDEPT= '普外三科' then '0401' when a.FCYDEPT= '胸外科' then '0405' when a.FCYDEPT= '普外三科(含胸外)' then '0401' when a.FCYDEPT= '普外三科门诊' then '0401' when a.FCYDEPT= '医学检验科' then '30' when a.FCYDEPT= '病理科' then '31' when a.FCYDEPT= '输血科' then '69' when a.FCYDEPT= '放射科' then '3211' when a.FCYDEPT= '普通放射' then '3201' when a.FCYDEPT= 'CT' then '3202' when a.FCYDEPT= 'MR' then '3203' when a.FCYDEPT= '超声科' then '3205' when a.FCYDEPT= '超声介入' then '3205' when a.FCYDEPT= '心电图室' then '3206' when a.FCYDEPT= '脑电图室' then '3207' when a.FCYDEPT= '脑磁治疗室' then '3207' when a.FCYDEPT= '消化内镜室' then '3211' when a.FCYDEPT= '支气管镜室' then '3211' when a.FCYDEPT= '消毒供应室' then '3211' when a.FCYDEPT= '眼震视图室' then '3211' when a.FCYDEPT= '肺功能室' then '3211' when a.FCYDEPT= '药剂科' then '3211' when a.FCYDEPT= '门诊西药房' then '3211' when a.FCYDEPT= '中药房' then '3211' when a.FCYDEPT= '中心药房' then '3211' when a.FCYDEPT= '西药库' then '3211' when a.FCYDEPT= '中药库' then '3211' when a.FCYDEPT= '健康体检科' then '3211' when a.FCYDEPT= '健检服务部' then '3211' when a.FCYDEPT= '驾照体检' then '3211' when a.FCYDEPT= '驻外体检' then '3211' when a.FCYDEPT= '医学美容科' then '0408' when a.FCYDEPT= '医学美容科门诊' then '0408' when a.FCYDEPT= '生活美容' then '0408' end 出院科别P26" // 出院科别
-        				+ ",case when a.FCYBS='呼吸内科' then '0301'  when a.FCYBS='消化内科' then '0302'when a.FCYBS='神经内科' then '0303'when a.FCYBS='心血管内科' then '0304'when a.FCYBS='肾内风湿科' then '0306'when a.FCYBS='内分泌科' then '0307'when a.FCYBS='神经外科' then '0402'when a.FCYBS like '泌尿%科' then '0404'  when a.FCYBS = '肛肠科' then '04'when a.FCYBS='妇产二科' then '05'when a.FCYBS like '骨%科' then '0403'when a.FCYBS = '普外三科(含胸外)' then '0401'when a.FCYBS like '普%科' then '0401'when a.FCYBS='儿科' then '07'when a.FCYBS like '妇产%科' then '05'when a.FCYBS like '眼科%' then '10'when a.FCYBS like '%外科' then '04'when a.FCYBS = '重症医学科' then '28'when a.FCYBS = '耳鼻咽喉科' then '11'when a.FCYBS = '中医科' then '50'when a.FCYBS = '急诊医学科' then '20'end 出院病室P261,a.FDAYS 实际住院天数P27,a.FMZZDBH '门（急）诊诊断编码P28',a.FMZZD '门（急）诊诊断描述P281',a.FRYINFOBH 入院时情况P29,a.FRYZDBH 入院诊断编码P30,a.FRYZD 入院诊断描述P301,CONVERT(varchar(100),a.FQZDATE,23) 入院后确诊日期P31,";
+        		sql = "select * from (select row_number() over (order by a.FPRN) as rowNum, "
+        				+ "'48965210-X' 医疗机构代码P900,'漳州市第三医院' 机构名称P6891,'' \"医疗保险手册（卡号）P686\",a.FASCARD1 健康卡号P800,case when LEN(a.FFBBHNEW) > 1 then SUBSTRING(a.FFBBHNEW,2,1) when LEN(a.FFBBHNEW) < 1 then 7 when a.FFBBHNEW is null then 7 else a.FFBBHNEW end 医疗付款方式P1,a.FFBNEW 医疗付款方式代码,a.FTIMES 住院次数P2,a.FPRN 病案号P3,a.FNAME 姓名P4,a.FSEXBH 性别P5,a.FSEX 性别代码,CONVERT(varchar(100), a.FBIRTHDAY,23) 出生日期P6,FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) as ddd,case when FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) > 0 then FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) else null end 年龄P7,case when a.FSTATUSBH = '' or a.FSTATUSBH = NULL then '9' else a.FSTATUSBH end 婚姻状况P8,case when a.FJOBBH = 11 then 11 when a.FJOBBH = 13 then 13 when a.FJOBBH = 17 then 17 when a.FJOBBH = 21 then 21 when a.FJOBBH = 24 then 24 when a.FJOBBH = 27 then 27 when a.FJOBBH = 31 then 31 when a.FJOBBH = 37 then 37 when a.FJOBBH = 51 then 51 when a.FJOBBH = 54 then 54 when a.FJOBBH = 70 then 70 when a.FJOBBH = 80 then 80 when a.FJOBBH = 90 then 90 else 00 end 职业P9,case when PATINDEX('%省%',a.FBIRTHPLACE) > 0 then left(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生省份P101,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)+1,PATINDEX('%市%',a.FBIRTHPLACE)-PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生地市P102,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%市%',a.FBIRTHPLACE)+1,LEN(a.FBIRTHPLACE)) else a.FBIRTHPLACE end 出生地县P103,a.FNATIONALITY 民族P11,a.FCOUNTRY 国籍P12,a.FIDCARD 身份证号P13,a.FCURRADDR 现住址P801,a.FCURRTELE 住宅电话P802,a.FCURRPOST 现住址邮政编码P803,a.FDWADDR+a.FDWNAME 工作单位及地址P14,a.FDWTELE 电话P15,a.FDWPOST 工作单位邮政编码P16,a.FHKADDR 户口地址P17,a.FHKPOST 户口所在地邮政编码P171,a.FLXNAME 联系人姓名P18,case when a.FRELATE = '配偶' then 1 when a.FRELATE = '子' then 2 when a.FRELATE = '女' then 3 when a.FRELATE = '孙子、孙女或外孙子、外孙女' then 4 when a.FRELATE = '父母' then 5 when a.FRELATE = '祖父母或外祖父母' then 6 when a.FRELATE = '兄、弟、姐、妹' then 7 else 8 end 关系P19,a.FLXADDR 联系人地址P20,case when a.FRYTJBH is null then 4 when a.FRYTJBH = '' then 4 when a.FRYTJBH = 9 then 4 else a.FRYTJBH end 入院途径P804,a.FLXTELE 联系人电话P21,CONVERT(varchar(100),a.FRYDATE,20) 入院日期P22,"
+        				+ Util.getCaseWhen(CONFIG.CASE_WHEN_DEPT, "a", "FRYDEPT") + " 入院科别P23," // 入院科别
+        				+ "a.FRYBS 入院病室P231,"
+        				+ Util.getCaseWhen(CONFIG.CASE_WHEN_ZKDEPT, "a", "FZKDEPT") + " 转科科别P24,CONVERT(varchar(100),a.FCYDATE,20) 出院日期P25,"
+        				+ Util.getCaseWhen(CONFIG.CASE_WHEN_DEPT, "a", "FCYDEPT") + " 出院科别P26," // 出院科别
+        				+ Util.getCaseWhen(CONFIG.CASE_WHEN_CYBS, "a", "FCYBS")
+        				+ " 出院病室P261,a.FDAYS 实际住院天数P27,a.FMZZDBH '门（急）诊诊断编码P28',a.FMZZD '门（急）诊诊断描述P281',a.FRYINFOBH 入院时情况P29,a.FRYZDBH 入院诊断编码P30,a.FRYZD 入院诊断描述P301,CONVERT(varchar(100),a.FQZDATE,23) 入院后确诊日期P31,";
         	} else {
-        		sql = "select '48965210-X' 医疗机构代码P900,'漳州市第三医院' 机构名称P6891,'' \"医疗保险手册（卡号）P686\",a.FASCARD1 健康卡号P800,case when LEN(a.FFBBHNEW) > 1 then SUBSTRING(a.FFBBHNEW,2,1) when LEN(a.FFBBHNEW) < 1 then 7 when a.FFBBHNEW is null then 7 else a.FFBBHNEW end 医疗付款方式P1,a.FFBNEW 医疗付款方式代码,a.FTIMES 住院次数P2,a.FPRN 病案号P3,a.FNAME 姓名P4,a.FSEXBH 性别P5,a.FSEX 性别代码,CONVERT(varchar(100), a.FBIRTHDAY,23) 出生日期P6,SUBSTRING(a.FAGE,2,3) 年龄P7,case when a.FSTATUSBH = '' or a.FSTATUSBH = NULL then '9' else a.FSTATUSBH end 婚姻状况P8,a.FJOBBH 职业P9,case when PATINDEX('%省%',a.FBIRTHPLACE) > 0 then left(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生省份P101,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)+1,PATINDEX('%市%',a.FBIRTHPLACE)-PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生地市P102,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%市%',a.FBIRTHPLACE)+1,LEN(a.FBIRTHPLACE)) else a.FBIRTHPLACE end 出生地县P103,a.FNATIONALITY 民族P11,a.FCOUNTRY 国籍P12,a.FIDCARD 身份证号P13,a.FCURRADDR 现住址P801,a.FCURRTELE 住宅电话P802,a.FCURRPOST 现住址邮政编码P803,a.FDWADDR+a.FDWNAME 工作单位及地址P14,a.FDWTELE 电话P15,a.FDWPOST 工作单位邮政编码P16,a.FHKADDR 户口地址P17,a.FHKPOST 户口所在地邮政编码P171,a.FLXNAME 联系人姓名P18,a.FRELATE 关系P19,a.FLXADDR 联系人地址P20,case when a.FRYTJBH is null then 4 when a.FRYTJBH = '' then 4 when a.FRYTJBH = 9 then 4 else a.FRYTJBH end 入院途径P804,a.FLXTELE 联系人电话P21,CONVERT(varchar(100),a.FRYDATE,20) 入院日期P22,case when a.FRYDEPT= '医院感染管理科' then '16' when a.FRYDEPT= '急诊医学科' then '20' when a.FRYDEPT= '门诊输液室' then '20' when a.FRYDEPT= '疼痛科门诊' then '27' when a.FRYDEPT= '麻醉科' then '26' when a.FRYDEPT= '手术室' then '26' when a.FRYDEPT= '中医科' then '50' when a.FRYDEPT= '中医科门诊' then '50' when a.FRYDEPT= '康复科' then '21' when a.FRYDEPT= '康复科门诊' then '21' when a.FRYDEPT= '重症医学科' then '28' when a.FRYDEPT= '呼吸与危重症医学科' then '0301' when a.FRYDEPT= '呼吸与危重症医学科门诊' then '0301' when a.FRYDEPT= '呼吸与危重症医学科' then '0301' when a.FRYDEPT= '呼吸与危重症医学科门诊' then '0301' when a.FRYDEPT= '肾内风湿科' then '0306' when a.FRYDEPT= '肾内风湿科门诊' then '0306' when a.FRYDEPT= '血液透析室' then '0306' when a.FRYDEPT= '心血管内科' then '0304' when a.FRYDEPT= '心血管内科门诊' then '0304' when a.FRYDEPT= '神经内科' then '0303' when a.FRYDEPT= '神经内科门诊' then '0303' when a.FRYDEPT= '消化内科' then '0302' when a.FRYDEPT= '消化内科门诊' then '0302' when a.FRYDEPT= '内分泌科' then '0307' when a.FRYDEPT= '内分泌科门诊' then '0307' when a.FRYDEPT= '普一科' then '0401' when a.FRYDEPT= '普一科门诊' then '0401' when a.FRYDEPT= '普二科' then '0401' when a.FRYDEPT= '普二科门诊' then '0401' when a.FRYDEPT= '乳腺甲状腺外科' then '0409' when a.FRYDEPT= '乳腺甲状腺外科门诊' then '0409' when a.FRYDEPT= '肛肠科' then '0409' when a.FRYDEPT= '肛肠科门诊' then '0409' when a.FRYDEPT= '普外一科' then '0401' when a.FRYDEPT= '普外一科门诊' then '0401' when a.FRYDEPT= '泌尿外科' then '0404' when a.FRYDEPT= '泌尿外科门诊' then '0404' when a.FRYDEPT= '体外震波碎石室' then '0404' when a.FRYDEPT= '泌尿一科' then '0404' when a.FRYDEPT= '泌尿一科门诊' then '0404' when a.FRYDEPT= '泌尿二科' then '0404' when a.FRYDEPT= '泌尿二科门诊' then '0404' when a.FRYDEPT= '神经外科' then '0402' when a.FRYDEPT= '神经外科门诊' then '0402' when a.FRYDEPT= '老年病科' then '0310' when a.FRYDEPT= '老年病科门诊' then '0310' when a.FRYDEPT= '骨科综合门诊' then '0403' when a.FRYDEPT= '骨一科' then '0403' when a.FRYDEPT= '骨一科门诊' then '0403' when a.FRYDEPT= '骨二科' then '0403' when a.FRYDEPT= '骨二科门诊' then '0403' when a.FRYDEPT= '手足外科·慢创治疗科' then '0403' when a.FRYDEPT= '手足外科·慢创治疗科门诊' then '0403' when a.FRYDEPT= '急慢性创口治疗科' then '0409' when a.FRYDEPT= '眼科二' then '10' when a.FRYDEPT= '妇产科' then '05' when a.FRYDEPT= '妇产科门诊' then '05' when a.FRYDEPT= '生殖内分泌科' then '05' when a.FRYDEPT= '妇产一科' then '05' when a.FRYDEPT= '妇产二科' then '05' when a.FRYDEPT= '妇产一科门诊' then '05' when a.FRYDEPT= '妇产二科门诊' then '05' when a.FRYDEPT= '生殖内分泌科门诊' then '0505' when a.FRYDEPT= '儿科' then '07' when a.FRYDEPT= '儿科门诊' then '07' when a.FRYDEPT= '眼科' then '10' when a.FRYDEPT= '眼科门诊' then '10' when a.FRYDEPT= '耳鼻咽喉科' then '11' when a.FRYDEPT= '耳鼻咽喉科门诊' then '11' when a.FRYDEPT= '口腔科' then '12' when a.FRYDEPT= '口腔科门诊' then '12' when a.FRYDEPT= '皮肤科' then '13' when a.FRYDEPT= '皮肤科门诊' then '13' when a.FRYDEPT= '呼吸与结核病科' then '1602' when a.FRYDEPT= '呼吸与结核病科门诊' then '1602' when a.FRYDEPT= '呼吸与结核病科' then '17' when a.FRYDEPT= '呼吸与结核病科门诊' then '17' when a.FRYDEPT= '内科综合门诊' then '5001' when a.FRYDEPT= '院外门诊' then '5001' when a.FRYDEPT= '预防保健科' then '5017' when a.FRYDEPT= '肿瘤科' then '19' when a.FRYDEPT= '肿瘤科门诊' then '19' when a.FRYDEPT= '放射治疗科' then '3210' when a.FRYDEPT= '放射治疗科门诊' then '3210' when a.FRYDEPT= '外科综合门诊' then '04' when a.FRYDEPT= '普外二科' then '0401' when a.FRYDEPT= '普外二科门诊' then '0401' when a.FRYDEPT= '普外三科' then '0401' when a.FRYDEPT= '胸外科' then '0405' when a.FRYDEPT= '普外三科(含胸外)' then '0401' when a.FRYDEPT= '普外三科门诊' then '0401' when a.FRYDEPT= '医学检验科' then '30' when a.FRYDEPT= '病理科' then '31' when a.FRYDEPT= '输血科' then '69' when a.FRYDEPT= '放射科' then '3211' when a.FRYDEPT= '普通放射' then '3201' when a.FRYDEPT= 'CT' then '3202' when a.FRYDEPT= 'MR' then '3203' when a.FRYDEPT= '超声科' then '3205' when a.FRYDEPT= '超声介入' then '3205' when a.FRYDEPT= '心电图室' then '3206' when a.FRYDEPT= '脑电图室' then '3207' when a.FRYDEPT= '脑磁治疗室' then '3207' when a.FRYDEPT= '消化内镜室' then '3211' when a.FRYDEPT= '支气管镜室' then '3211' when a.FRYDEPT= '消毒供应室' then '3211' when a.FRYDEPT= '眼震视图室' then '3211' when a.FRYDEPT= '肺功能室' then '3211' when a.FRYDEPT= '药剂科' then '3211' when a.FRYDEPT= '门诊西药房' then '3211' when a.FRYDEPT= '中药房' then '3211' when a.FRYDEPT= '中心药房' then '3211' when a.FRYDEPT= '西药库' then '3211' when a.FRYDEPT= '中药库' then '3211' when a.FRYDEPT= '健康体检科' then '3211' when a.FRYDEPT= '健检服务部' then '3211' when a.FRYDEPT= '驾照体检' then '3211' when a.FRYDEPT= '驻外体检' then '3211' when a.FRYDEPT= '医学美容科' then '0408' when a.FRYDEPT= '医学美容科门诊' then '0408' when a.FRYDEPT= '生活美容' then '0408' end 入院科别P23," // 入院科别
-        				+ "a.FRYBS 入院病室P231,case when a.FZKDEPT='呼吸内科' then '0301'  when a.FZKDEPT='消化内科' then '0302'when a.FZKDEPT='神经内科' then '0303'when a.FZKDEPT='心血管内科' then '0304'when a.FZKDEPT='肾内风湿科' then '0306'when a.FZKDEPT='内分泌科' then '0307'when a.FZKDEPT='神经外科' then '0402'when a.FZKDEPT like '泌尿%科' then '0404'  when a.FZKDEPT = '肛肠科' then '04'when a.FZKDEPT='妇产二科' then '05'when a.FZKDEPT like '骨%科' then '0403'when a.FZKDEPT = '普外三科(含胸外)' then '0401'when a.FZKDEPT like '普%科' then '0401'when a.FZKDEPT='儿科' then '07'when a.FZKDEPT like '妇产%科' then '05'when a.FZKDEPT like '眼科%' then '10'when a.FZKDEPT like '%外科' then '04'when a.FZKDEPT = '重症医学科' then '28'when a.FZKDEPT = '耳鼻咽喉科' then '11'when a.FZKDEPT = '中医科' then '50'when a.FZKDEPT = '急诊医学科' then '20'end 转科科别P24,CONVERT(varchar(100),a.FCYDATE,20) 出院日期P25,case when a.FCYDEPT= '医院感染管理科' then '16' when a.FCYDEPT= '急诊医学科' then '20' when a.FCYDEPT= '门诊输液室' then '20' when a.FCYDEPT= '疼痛科门诊' then '27' when a.FCYDEPT= '麻醉科' then '26' when a.FCYDEPT= '手术室' then '26' when a.FCYDEPT= '中医科' then '50' when a.FCYDEPT= '中医科门诊' then '50' when a.FCYDEPT= '康复科' then '21' when a.FCYDEPT= '康复科门诊' then '21' when a.FCYDEPT= '重症医学科' then '28' when a.FCYDEPT= '呼吸与危重症医学科' then '0301' when a.FCYDEPT= '呼吸与危重症医学科门诊' then '0301' when a.FCYDEPT= '呼吸与危重症医学科' then '0301' when a.FCYDEPT= '呼吸与危重症医学科门诊' then '0301' when a.FCYDEPT= '肾内风湿科' then '0306' when a.FCYDEPT= '肾内风湿科门诊' then '0306' when a.FCYDEPT= '血液透析室' then '0306' when a.FCYDEPT= '心血管内科' then '0304' when a.FCYDEPT= '心血管内科门诊' then '0304' when a.FCYDEPT= '神经内科' then '0303' when a.FCYDEPT= '神经内科门诊' then '0303' when a.FCYDEPT= '消化内科' then '0302' when a.FCYDEPT= '消化内科门诊' then '0302' when a.FCYDEPT= '内分泌科' then '0307' when a.FCYDEPT= '内分泌科门诊' then '0307' when a.FCYDEPT= '普一科' then '0401' when a.FCYDEPT= '普一科门诊' then '0401' when a.FCYDEPT= '普二科' then '0401' when a.FCYDEPT= '普二科门诊' then '0401' when a.FCYDEPT= '乳腺甲状腺外科' then '0409' when a.FCYDEPT= '乳腺甲状腺外科门诊' then '0409' when a.FCYDEPT= '肛肠科' then '0409' when a.FCYDEPT= '肛肠科门诊' then '0409' when a.FCYDEPT= '普外一科' then '0401' when a.FCYDEPT= '普外一科门诊' then '0401' when a.FCYDEPT= '泌尿外科' then '0404' when a.FCYDEPT= '泌尿外科门诊' then '0404' when a.FCYDEPT= '体外震波碎石室' then '0404' when a.FCYDEPT= '泌尿一科' then '0404' when a.FCYDEPT= '泌尿一科门诊' then '0404' when a.FCYDEPT= '泌尿二科' then '0404' when a.FCYDEPT= '泌尿二科门诊' then '0404' when a.FCYDEPT= '神经外科' then '0402' when a.FCYDEPT= '神经外科门诊' then '0402' when a.FCYDEPT= '老年病科' then '0310' when a.FCYDEPT= '老年病科门诊' then '0310' when a.FCYDEPT= '骨科综合门诊' then '0403' when a.FCYDEPT= '骨一科' then '0403' when a.FCYDEPT= '骨一科门诊' then '0403' when a.FCYDEPT= '骨二科' then '0403' when a.FCYDEPT= '骨二科门诊' then '0403' when a.FCYDEPT= '手足外科·慢创治疗科' then '0403' when a.FCYDEPT= '手足外科·慢创治疗科门诊' then '0403' when a.FCYDEPT= '急慢性创口治疗科' then '0409' when a.FCYDEPT= '眼科二' then '10' when a.FCYDEPT= '妇产科' then '05' when a.FCYDEPT= '妇产科门诊' then '05' when a.FCYDEPT= '生殖内分泌科' then '05' when a.FCYDEPT= '妇产一科' then '05' when a.FCYDEPT= '妇产二科' then '05' when a.FCYDEPT= '妇产一科门诊' then '05' when a.FCYDEPT= '妇产二科门诊' then '05' when a.FCYDEPT= '生殖内分泌科门诊' then '0505' when a.FCYDEPT= '儿科' then '07' when a.FCYDEPT= '儿科门诊' then '07' when a.FCYDEPT= '眼科' then '10' when a.FCYDEPT= '眼科门诊' then '10' when a.FCYDEPT= '耳鼻咽喉科' then '11' when a.FCYDEPT= '耳鼻咽喉科门诊' then '11' when a.FCYDEPT= '口腔科' then '12' when a.FCYDEPT= '口腔科门诊' then '12' when a.FCYDEPT= '皮肤科' then '13' when a.FCYDEPT= '皮肤科门诊' then '13' when a.FCYDEPT= '呼吸与结核病科' then '1602' when a.FCYDEPT= '呼吸与结核病科门诊' then '1602' when a.FCYDEPT= '呼吸与结核病科' then '17' when a.FCYDEPT= '呼吸与结核病科门诊' then '17' when a.FCYDEPT= '内科综合门诊' then '5001' when a.FCYDEPT= '院外门诊' then '5001' when a.FCYDEPT= '预防保健科' then '5017' when a.FCYDEPT= '肿瘤科' then '19' when a.FCYDEPT= '肿瘤科门诊' then '19' when a.FCYDEPT= '放射治疗科' then '3210' when a.FCYDEPT= '放射治疗科门诊' then '3210' when a.FCYDEPT= '外科综合门诊' then '04' when a.FCYDEPT= '普外二科' then '0401' when a.FCYDEPT= '普外二科门诊' then '0401' when a.FCYDEPT= '普外三科' then '0401' when a.FCYDEPT= '胸外科' then '0405' when a.FCYDEPT= '普外三科(含胸外)' then '0401' when a.FCYDEPT= '普外三科门诊' then '0401' when a.FCYDEPT= '医学检验科' then '30' when a.FCYDEPT= '病理科' then '31' when a.FCYDEPT= '输血科' then '69' when a.FCYDEPT= '放射科' then '3211' when a.FCYDEPT= '普通放射' then '3201' when a.FCYDEPT= 'CT' then '3202' when a.FCYDEPT= 'MR' then '3203' when a.FCYDEPT= '超声科' then '3205' when a.FCYDEPT= '超声介入' then '3205' when a.FCYDEPT= '心电图室' then '3206' when a.FCYDEPT= '脑电图室' then '3207' when a.FCYDEPT= '脑磁治疗室' then '3207' when a.FCYDEPT= '消化内镜室' then '3211' when a.FCYDEPT= '支气管镜室' then '3211' when a.FCYDEPT= '消毒供应室' then '3211' when a.FCYDEPT= '眼震视图室' then '3211' when a.FCYDEPT= '肺功能室' then '3211' when a.FCYDEPT= '药剂科' then '3211' when a.FCYDEPT= '门诊西药房' then '3211' when a.FCYDEPT= '中药房' then '3211' when a.FCYDEPT= '中心药房' then '3211' when a.FCYDEPT= '西药库' then '3211' when a.FCYDEPT= '中药库' then '3211' when a.FCYDEPT= '健康体检科' then '3211' when a.FCYDEPT= '健检服务部' then '3211' when a.FCYDEPT= '驾照体检' then '3211' when a.FCYDEPT= '驻外体检' then '3211' when a.FCYDEPT= '医学美容科' then '0408' when a.FCYDEPT= '医学美容科门诊' then '0408' when a.FCYDEPT= '生活美容' then '0408' end 出院科别P26," //出院科别
-        				+ "case when a.FCYBS='呼吸内科' then '0301'  when a.FCYBS='消化内科' then '0302'when a.FCYBS='神经内科' then '0303'when a.FCYBS='心血管内科' then '0304'when a.FCYBS='肾内风湿科' then '0306'when a.FCYBS='内分泌科' then '0307'when a.FCYBS='神经外科' then '0402'when a.FCYBS like '泌尿%科' then '0404'  when a.FCYBS = '肛肠科' then '04'when a.FCYBS='妇产二科' then '05'when a.FCYBS like '骨%科' then '0403'when a.FCYBS = '普外三科(含胸外)' then '0401'when a.FCYBS like '普%科' then '0401'when a.FCYBS='儿科' then '07'when a.FCYBS like '妇产%科' then '05'when a.FCYBS like '眼科%' then '10'when a.FCYBS like '%外科' then '04'when a.FCYBS = '重症医学科' then '28'when a.FCYBS = '耳鼻咽喉科' then '11'when a.FCYBS = '中医科' then '50'when a.FCYBS = '急诊医学科' then '20'end 出院病室P261,a.FDAYS 实际住院天数P27,a.FMZZDBH '门（急）诊诊断编码P28',a.FMZZD '门（急）诊诊断描述P281',a.FRYINFOBH 入院时情况P29,a.FRYZDBH 入院诊断编码P30,a.FRYZD 入院诊断描述P301,CONVERT(varchar(100),a.FQZDATE,23) 入院后确诊日期P31,";
+        		sql = "select '48965210-X' 医疗机构代码P900,'漳州市第三医院' 机构名称P6891,'' \"医疗保险手册（卡号）P686\",a.FASCARD1 健康卡号P800,case when LEN(a.FFBBHNEW) > 1 then SUBSTRING(a.FFBBHNEW,2,1) when LEN(a.FFBBHNEW) < 1 then 7 when a.FFBBHNEW is null then 7 else a.FFBBHNEW end 医疗付款方式P1,a.FFBNEW 医疗付款方式代码,a.FTIMES 住院次数P2,a.FPRN 病案号P3,a.FNAME 姓名P4,a.FSEXBH 性别P5,a.FSEX 性别代码,CONVERT(varchar(100), a.FBIRTHDAY,23) 出生日期P6,FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) as ddd,case when FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) > 0 then FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) else null end 年龄P7,case when a.FSTATUSBH = '' or a.FSTATUSBH = NULL then '9' else a.FSTATUSBH end 婚姻状况P8,a.FJOBBH 职业P9,case when PATINDEX('%省%',a.FBIRTHPLACE) > 0 then left(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生省份P101,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)+1,PATINDEX('%市%',a.FBIRTHPLACE)-PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生地市P102,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%市%',a.FBIRTHPLACE)+1,LEN(a.FBIRTHPLACE)) else a.FBIRTHPLACE end 出生地县P103,a.FNATIONALITY 民族P11,a.FCOUNTRY 国籍P12,a.FIDCARD 身份证号P13,a.FCURRADDR 现住址P801,a.FCURRTELE 住宅电话P802,a.FCURRPOST 现住址邮政编码P803,a.FDWADDR+a.FDWNAME 工作单位及地址P14,a.FDWTELE 电话P15,a.FDWPOST 工作单位邮政编码P16,a.FHKADDR 户口地址P17,a.FHKPOST 户口所在地邮政编码P171,a.FLXNAME 联系人姓名P18,a.FRELATE 关系P19,a.FLXADDR 联系人地址P20,case when a.FRYTJBH is null then 4 when a.FRYTJBH = '' then 4 when a.FRYTJBH = 9 then 4 else a.FRYTJBH end 入院途径P804,a.FLXTELE 联系人电话P21,CONVERT(varchar(100),a.FRYDATE,20) 入院日期P22,"
+        				+ Util.getCaseWhen(CONFIG.CASE_WHEN_DEPT, "a", "FRYDEPT") + " 入院科别P23," // 入院科别
+        				+ "a.FRYBS 入院病室P231,"
+        				+ Util.getCaseWhen(CONFIG.CASE_WHEN_ZKDEPT, "a", "FZKDEPT") + " 转科科别P24,CONVERT(varchar(100),a.FCYDATE,20) 出院日期P25,"
+        				+ Util.getCaseWhen(CONFIG.CASE_WHEN_DEPT, "a", "FCYDEPT") + " 出院科别P26," //出院科别
+        				+ Util.getCaseWhen(CONFIG.CASE_WHEN_CYBS, "a", "FCYBS")
+        				+ " 出院病室P261,a.FDAYS 实际住院天数P27,a.FMZZDBH '门（急）诊诊断编码P28',a.FMZZD '门（急）诊诊断描述P281',a.FRYINFOBH 入院时情况P29,a.FRYZDBH 入院诊断编码P30,a.FRYZD 入院诊断描述P301,CONVERT(varchar(100),a.FQZDATE,23) 入院后确诊日期P31,";
         	}
         	        sql += "a.FYNGR 医院感染总次数P689,"
             		+ "'' 病理诊断编码1P351,'' 病理诊断名称1P352,a.FPHZDNUM 病理号1P816,"
@@ -593,7 +273,7 @@ String sql = "select P900,\r\n" +
 //            		+ " where a.FPRN = '00184374'"
 					sql += "";//查询test表
             if (CONFIG.SHOW_SQL_LOG) {
-				LoggerManager.setInfoLog(sql); 
+				LoggerManager.setInfoLog("执行sql------------------------->" + sql); 
             }
             statement = con.prepareStatement(sql);
 	        con.setAutoCommit(false);
@@ -664,40 +344,14 @@ String sql = "select P900,\r\n" +
 //            	// 创建手术SQL
             	operation_sql = "select \r\n" + 
             			"FOPCODE 手术操作编码,CONVERT(varchar(100),FOPDATE,20) 手术操作日期,case when FSSJBBH is null then 1 else FSSJBBH end 手术级别,FOP 手术操作名称,\r\n" + 
-            			"case when s.sszlid is null then '9999' \r\n" + 
-            			"when s.sszlid = '01' then '0001' \r\n" + 
-            			"when s.sszlid = '02' then '0008'\r\n" + 
-            			"when s.sszlid = '03' then '0031'\r\n" + 
-            			"when s.sszlid = '04' then '0004'\r\n" + 
-            			"when s.sszlid = '05' then '0020'\r\n" + 
-            			"when s.sszlid = '06' then '0046'\r\n" + 
-            			"when s.sszlid = '07' then '0021'\r\n" + 
-            			"when s.sszlid = '08' then '0023'\r\n" + 
-            			"when s.sszlid = '09' then '0049'\r\n" + 
-            			"when s.sszlid = '10' then '0029'\r\n" + 
-            			"when s.sszlid = '11' then '0014'\r\n" + 
-            			"when s.sszlid = '12' then '0041'\r\n" + 
-            			"when s.sszlid = '13' then '0015'\r\n" + 
-            			"when s.sszlid = '14' then '0013'\r\n" + 
-            			"when s.sszlid = '15' then '0013'\r\n" + 
-            			"when s.sszlid = '16' then '0040'\r\n" + 
-            			"when s.sszlid = '17' then '0028'\r\n" + 
-            			"when s.sszlid = '18' then '9999'\r\n" + 
-            			"when s.sszlid = '19' then '0002'\r\n" + 
-            			"when s.sszlid = '20' then '0018'\r\n" + 
-            			"when s.sszlid = '21' then '9999'\r\n" + 
-            			"when s.sszlid = '22' then '9999'\r\n" + 
-            			"when s.sszlid = '23' then '9999'\r\n" + 
-            			"when s.sszlid = '24' then '0011'\r\n" + 
-            			"when s.sszlid = '25' then '0009'\r\n" + 
-            			"when s.sszlid = '26' then '0036'\r\n" + 
-            			"when s.sszlid = '27' then '9999' end 手术操作部位,'1' 手术持续时间,FDOCNAME 术者,FOPDOCT1 Ⅰ助,FOPDOCT2 Ⅱ助,case when  FMAZUIBH = '1'  or FMAZUIBH = '0.0001' then '01' when FMAZUIBH = '2' or FMAZUIBH = '0.0002' then '03' when FMAZUIBH = '3' or FMAZUIBH = '0.0003' then '99' when FMAZUIBH = '4' or FMAZUIBH = '0.0004' then '0104' when FMAZUIBH = '5' or FMAZUIBH = '0.0005' then '0102' when FMAZUIBH = '6' or FMAZUIBH = '0.0006' then '0502' when FMAZUIBH = '7' or FMAZUIBH = '0.0007' then '0502' when FMAZUIBH = '8' or FMAZUIBH = '0.0008' then '0103' when FMAZUIBH = '9' or FMAZUIBH = '0.0009' then '0502' when FMAZUIBH = '10' or FMAZUIBH = '0.0010' then '0502' when FMAZUIBH = '11' or FMAZUIBH = '0.0011' then '99' when FMAZUIBH = '12' or FMAZUIBH = '0.0012' then '0502' when FMAZUIBH = '13' or FMAZUIBH = '0.0013' then '0102' when FMAZUIBH = '14' or FMAZUIBH = '0.0014' then '0502' when FMAZUIBH = '15' or FMAZUIBH = '0.0015' then '020102' when FMAZUIBH = '16' or FMAZUIBH = '0.0016' then '0502' when FMAZUIBH = '17' or FMAZUIBH = '0.0017' then '020103' when FMAZUIBH = '18' or FMAZUIBH = '0.0018' then '0502' when FMAZUIBH = '19' or FMAZUIBH = '0.0019' then '020201' when FMAZUIBH = '20' or FMAZUIBH = '0.0020' then '0502' when FMAZUIBH = '21' or FMAZUIBH = '0.0021' then '020202' when FMAZUIBH = '22' or FMAZUIBH = '0.0022' then '0502' when FMAZUIBH = '23' or FMAZUIBH = '0.0023' then '99' when FMAZUIBH = '24' or FMAZUIBH = '0.0024' then '99' when FMAZUIBH = '25' or FMAZUIBH = '0.0025' then '020101' when FMAZUIBH = '26' or FMAZUIBH = '0.0026' then '99' when FMAZUIBH is null or FMAZUIBH = '——' then '99' else FMAZUIBH end 麻醉方式,'1' 麻醉分级,\r\n" + 
+            			Util.getCaseWhen(CONFIG.CASE_WHEN_OPER_PART, "s", "sszlid") + " 手术操作部位,"
+            			+ "'1' 手术持续时间,FDOCNAME 术者,FOPDOCT1 Ⅰ助,FOPDOCT2 Ⅱ助,case when  FMAZUIBH = '1'  or FMAZUIBH = '0.0001' then '01' when FMAZUIBH = '2' or FMAZUIBH = '0.0002' then '03' when FMAZUIBH = '3' or FMAZUIBH = '0.0003' then '99' when FMAZUIBH = '4' or FMAZUIBH = '0.0004' then '0104' when FMAZUIBH = '5' or FMAZUIBH = '0.0005' then '0102' when FMAZUIBH = '6' or FMAZUIBH = '0.0006' then '0502' when FMAZUIBH = '7' or FMAZUIBH = '0.0007' then '0502' when FMAZUIBH = '8' or FMAZUIBH = '0.0008' then '0103' when FMAZUIBH = '9' or FMAZUIBH = '0.0009' then '0502' when FMAZUIBH = '10' or FMAZUIBH = '0.0010' then '0502' when FMAZUIBH = '11' or FMAZUIBH = '0.0011' then '99' when FMAZUIBH = '12' or FMAZUIBH = '0.0012' then '0502' when FMAZUIBH = '13' or FMAZUIBH = '0.0013' then '0102' when FMAZUIBH = '14' or FMAZUIBH = '0.0014' then '0502' when FMAZUIBH = '15' or FMAZUIBH = '0.0015' then '020102' when FMAZUIBH = '16' or FMAZUIBH = '0.0016' then '0502' when FMAZUIBH = '17' or FMAZUIBH = '0.0017' then '020103' when FMAZUIBH = '18' or FMAZUIBH = '0.0018' then '0502' when FMAZUIBH = '19' or FMAZUIBH = '0.0019' then '020201' when FMAZUIBH = '20' or FMAZUIBH = '0.0020' then '0502' when FMAZUIBH = '21' or FMAZUIBH = '0.0021' then '020202' when FMAZUIBH = '22' or FMAZUIBH = '0.0022' then '0502' when FMAZUIBH = '23' or FMAZUIBH = '0.0023' then '99' when FMAZUIBH = '24' or FMAZUIBH = '0.0024' then '99' when FMAZUIBH = '25' or FMAZUIBH = '0.0025' then '020101' when FMAZUIBH = '26' or FMAZUIBH = '0.0026' then '99' when FMAZUIBH is null or FMAZUIBH = '——' then '99' else FMAZUIBH end 麻醉方式,'1' 麻醉分级,\r\n" + 
             			"case when FQIEKOUBH is null or FQIEKOUBH = 0 or FQIEKOUBH = 9 then 0\r\n" + 
             			"when FQIEKOUBH = 1 and FYUHEBH = 1 then 1 when FQIEKOUBH = 1 and FYUHEBH = 2 then 2 when FQIEKOUBH = 1 and FYUHEBH = 3 then 3 when FQIEKOUBH = 1 and FYUHEBH is null or FYUHEBH = 4 then 10 \r\n" + 
             			"when FQIEKOUBH = 2 and FYUHEBH = 1 then 4 when FQIEKOUBH = 2 and FYUHEBH = 2 then 5 when FQIEKOUBH = 2 and FYUHEBH = 3 then 6 when FQIEKOUBH = 2 and FYUHEBH is null or FYUHEBH = 4 then 11\r\n" + 
             			"when FQIEKOUBH = 3 and FYUHEBH = 1 then 7 when FQIEKOUBH = 3 and FYUHEBH = 2 then 8 when FQIEKOUBH = 3 and FYUHEBH = 3 then 9 when FQIEKOUBH = 3 and FYUHEBH is null or FYUHEBH = 4 then 12\r\n" + 
             			" end 切口愈合等级,FMZDOCT 麻醉医师\r\n" + 
-            			"from TOPERATION t left join [13.18.1.150].THIS4.dbo.SS_SSDJK s on t.FPRN = s.blh collate Chinese_PRC_CI_AS where t.FPRN = '" + patient.getP3() + "';";
+            			"from TOPERATION t left join [" + CONFIG.HIS_IP + "].THIS4.dbo.SS_SSDJK s on t.FPRN = s.blh collate Chinese_PRC_CI_AS where t.FPRN = '" + patient.getP3() + "';";
             	if (CONFIG.SHOW_SQL_LOG) {
             		LoggerManager.setInfoLog(operation_sql);
             	}

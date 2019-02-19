@@ -269,4 +269,18 @@ public class Util {
 //	        LoggerManager.setInfoLog( "获取日期：" + f.format(c.getTime()));
 	        return f.format(c.getTime());
 		}
+		
+		public static String getCaseWhen(String[][] double_dimensional_arrays,String table_alias,String column) {
+			String case_when = " case ";
+			for (int i = 0; i < double_dimensional_arrays.length; i++) {
+				if ("null".equals(double_dimensional_arrays[i][0])) {
+					case_when += " when " + (table_alias == "" ? "" : table_alias + ".") + column + " is " + double_dimensional_arrays[i][0] + " then '" + double_dimensional_arrays[i][1] + "' ";
+				} else {
+					case_when += " when " + (table_alias == "" ? "" : table_alias + ".") + column + " = '" + double_dimensional_arrays[i][0] + "' then '" + double_dimensional_arrays[i][1] + "' ";
+				}
+			}
+			case_when += " end ";
+			System.out.println( case_when );
+			return case_when;
+		}
 }

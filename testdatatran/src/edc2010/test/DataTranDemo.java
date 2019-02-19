@@ -221,7 +221,6 @@ public class DataTranDemo {
 	                }
 	        });
 	        t.start() ;
-
-	   }	
+	   }
 }
 
