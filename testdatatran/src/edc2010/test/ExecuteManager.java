@@ -2,6 +2,8 @@ package edc2010.test;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -85,6 +87,7 @@ public class ExecuteManager implements Runnable {
 		}
 		if (DBFCreateStatus) {
 			try {
+				SendBarkPushMsg.sendMsg("HQMS数据上报情况通知", new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒").format(new Date()) + "上报数据生成成功！", "");
 				SendWechatMsg.sendMsg("HQMS数据上报情况通知", Util.getNowDate() + "上报数据生成成功", Util.getNowTime());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -92,6 +95,7 @@ public class ExecuteManager implements Runnable {
 			}
 		} else {
 			try {
+				SendBarkPushMsg.sendMsg("HQMS数据上报情况通知", new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒").format(new Date()) + "上报数据生成失败！", "");
 				SendWechatMsg.sendMsg("HQMS数据上报情况通知", Util.getNowDate() + "上报数据生成失败", Util.getNowTime());
 			} catch (Exception e) {
 				e.printStackTrace();

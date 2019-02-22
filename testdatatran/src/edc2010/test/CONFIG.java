@@ -31,11 +31,11 @@ public class CONFIG {
 	
 	// 日志输出地址
 	public final static String LOG_PATH = "D:/hqms/log/";
-	//用户名
+	// 用户名
 	public final static String USER="zzsdsyy_hqms"; 
-	//密码
+	// 密码
 	public final static String PWD="dsyy@HQMS"; //  
-	//返回数据的类型
+	// 返回数据的类型
 	public final static String DATA_TYPE="json"; 
 	// 限制出院日期
 	public static String OUT_DATE = " a.FCYDATE between '" + Util.getSomedayEarly(-10) + "' and '" + Util.getSomedayEarly(-10) + "' ";
@@ -48,6 +48,12 @@ public class CONFIG {
 	public final static String secret = "26ef06f62deeb2c26cf8f0c5e908d7de";
 	public final static String token = "dc6438fc7b6c20efd4b6071db04224c9";
 	public final static String template_id = "LwKYoC6h87akctOEqQV74lcZgJKuQzSFQv6JkVsth-A";
+	
+	// bark keys
+	public final static String[] BARK_KEYS = {
+			"NQGXRyoAehdz8vg8Kpxfp8"
+			,"RFMLLwpLgTzkmKmAc3sPXR"
+	};
 	
 	// 科别代码表
 	public final static String[][] CASE_WHEN_DEPT = {
