@@ -9,9 +9,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -21,7 +18,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 public class DataTranDemo {
-	private static Logger logger = Logger.getLogger(DataTranDemo.class);
 	
 	/**
 	 * 服务器的域名地址
@@ -206,7 +202,6 @@ public class DataTranDemo {
 		ScheduledExecutorService service = Executors.newScheduledThreadPool(1);//先定义1个线程空间
 	      final ScheduledFuture<?> future = service.scheduleAtFixedRate(new ExecuteManager(), 0,24,
 	                 TimeUnit.HOURS);
-
 	      //使用1个线程
 	         Thread t= new Thread(new Runnable() {
 	                public void run() {
@@ -214,13 +209,12 @@ public class DataTranDemo {
 	                        future.get();
 	                    } catch (Exception e) {
 	                        System.out.println(e.getCause().getMessage());//日志信息输出
-	                        SendWechatMsg.sendMsg("main", e.getMessage(), Util.getNowTime());
 	                        LoggerManager.setErrorLog(e.getCause().getMessage());
 	                        future.cancel(false);//关闭线程
 	                    }
 	                }
 	        });
-	        t.start() ;
+	        t.start();
 	   }
 }
 

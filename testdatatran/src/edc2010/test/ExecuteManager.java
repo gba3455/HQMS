@@ -17,7 +17,6 @@ public class ExecuteManager implements Runnable {
 		boolean canBeUse = JDBCUtil.canUse();
 		LoggerManager.setInfoLog("系统使用权限：" + canBeUse);
 		if (!canBeUse) {
-			System.out.println("当前系统使用权限关闭，无法使用。");
 			LoggerManager.setErrorLog("当前系统使用权限关闭，无法使用。");
 			System.exit(-1);
 		}
@@ -38,6 +37,9 @@ public class ExecuteManager implements Runnable {
 		// Starting Insert Data Into Database
 		if (CONFIG.IsMultiThread) {
 			int count = new JDBCUtil().getCount();
+			if(CONFIG.SHOW_SQL_LOG) {
+				System.out.println("总数量------------------------------->" + count);
+			}
 			for (int i = 0; i < count; i++) {
 				JDBCUtil util = new JDBCUtil();
 					if (i == 0) {
@@ -88,7 +90,6 @@ public class ExecuteManager implements Runnable {
 		if (DBFCreateStatus) {
 			try {
 				SendBarkPushMsg.sendMsg("HQMS数据上报情况通知", new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒").format(new Date()) + "上报数据生成成功！", "");
-				SendWechatMsg.sendMsg("HQMS数据上报情况通知", Util.getNowDate() + "上报数据生成成功", Util.getNowTime());
 			} catch (Exception e) {
 				e.printStackTrace();
 				LoggerManager.setErrorLog(e);
@@ -96,14 +97,11 @@ public class ExecuteManager implements Runnable {
 		} else {
 			try {
 				SendBarkPushMsg.sendMsg("HQMS数据上报情况通知", new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒").format(new Date()) + "上报数据生成失败！", "");
-				SendWechatMsg.sendMsg("HQMS数据上报情况通知", Util.getNowDate() + "上报数据生成失败", Util.getNowTime());
 			} catch (Exception e) {
 				e.printStackTrace();
 				LoggerManager.setErrorLog(e);
 			}
 		}
-//        final long end = System.currentTimeMillis();
-//        System.out.println((end-begin)/1000);
 	}
 
 }

@@ -88,14 +88,25 @@ String sql = "select hqms_can_use "
         ResultSet res = null;
         try {
             // SQL
-String sql = "select count(*) as COUNT "
-            		+ "from TPATIENTVISIT a "
-            		+ "left join TOPERATION c on a.FPRN=c.FPRN "
+String sql = "select count(*) as COUNT from ( "
+		+ "select *,NAME1 as 新生儿出生体重1P681,NAME2 as 新生儿出生体重2P682,NAME3 as 新生儿出生体重3P683,NAME4 as 新生儿出生体重4P684,NAME5 as 新生儿出生体重5P685 from ( " 
+            		+ "select a.FPRN,b.FTZ,b.NAME from TPATIENTVISIT a "
             		+ "left join HIS_BA1 d on a.FPRN=d.FPRN "
+            		+ "left join (select * from Tdiagnose where FZDLX = 's') g on a.FPRN = g.FPRN "
+            		+ "left join (select FPRN,'NAME' + convert(varchar,FBABYNUM) as NAME,FTZ from TBABYCARD) b on a.FPRN = b.FPRN "
             		+ " where "
-            		+ CONFIG.OUT_DATE
-					+ "";//查询test表
+            		+ " a.FCYDATE between '" + Util.getSomedayEarly(-10) + "' and '" + Util.getSomedayEarly(-10) + "' "
+					+ " ) AS P "
+					+ "PIVOT"
+					+ " ( "
+					+ " sum(FTZ) for "
+					+ " P.NAME in (NAME1,NAME2,NAME3,NAME4,NAME5) "
+					+ " ) as t"
+					+ ") as C";//查询test表
             
+			if (CONFIG.SHOW_SQL_LOG) {
+				LoggerManager.setInfoLog("get count sql ------------------------->" + sql);
+			}
             statement = con.prepareStatement(sql);
             res = statement.executeQuery();
             res.next();
@@ -227,8 +238,10 @@ String sql = "delete from " + tableName;//查询test表
         try {
             // SQL
         	if (CONFIG.IsMultiThread) {
-        		sql = "select * from (select row_number() over (order by a.FPRN) as rowNum, "
-        				+ "'48965210-X' 医疗机构代码P900,'漳州市第三医院' 机构名称P6891,'' \"医疗保险手册（卡号）P686\",a.FASCARD1 健康卡号P800,case when LEN(a.FFBBHNEW) > 1 then SUBSTRING(a.FFBBHNEW,2,1) when LEN(a.FFBBHNEW) < 1 then 7 when a.FFBBHNEW is null then 7 else a.FFBBHNEW end 医疗付款方式P1,a.FFBNEW 医疗付款方式代码,a.FTIMES 住院次数P2,a.FPRN 病案号P3,a.FNAME 姓名P4,a.FSEXBH 性别P5,a.FSEX 性别代码,CONVERT(varchar(100), a.FBIRTHDAY,23) 出生日期P6,FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) as ddd,case when FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) > 0 then FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) else null end 年龄P7,case when a.FSTATUSBH = '' or a.FSTATUSBH = NULL then '9' else a.FSTATUSBH end 婚姻状况P8,case when a.FJOBBH = 11 then 11 when a.FJOBBH = 13 then 13 when a.FJOBBH = 17 then 17 when a.FJOBBH = 21 then 21 when a.FJOBBH = 24 then 24 when a.FJOBBH = 27 then 27 when a.FJOBBH = 31 then 31 when a.FJOBBH = 37 then 37 when a.FJOBBH = 51 then 51 when a.FJOBBH = 54 then 54 when a.FJOBBH = 70 then 70 when a.FJOBBH = 80 then 80 when a.FJOBBH = 90 then 90 else 00 end 职业P9,case when PATINDEX('%省%',a.FBIRTHPLACE) > 0 then left(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生省份P101,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)+1,PATINDEX('%市%',a.FBIRTHPLACE)-PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生地市P102,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%市%',a.FBIRTHPLACE)+1,LEN(a.FBIRTHPLACE)) else a.FBIRTHPLACE end 出生地县P103,a.FNATIONALITY 民族P11,a.FCOUNTRY 国籍P12,a.FIDCARD 身份证号P13,a.FCURRADDR 现住址P801,a.FCURRTELE 住宅电话P802,a.FCURRPOST 现住址邮政编码P803,a.FDWADDR+a.FDWNAME 工作单位及地址P14,a.FDWTELE 电话P15,a.FDWPOST 工作单位邮政编码P16,a.FHKADDR 户口地址P17,a.FHKPOST 户口所在地邮政编码P171,a.FLXNAME 联系人姓名P18,case when a.FRELATE = '配偶' then 1 when a.FRELATE = '子' then 2 when a.FRELATE = '女' then 3 when a.FRELATE = '孙子、孙女或外孙子、外孙女' then 4 when a.FRELATE = '父母' then 5 when a.FRELATE = '祖父母或外祖父母' then 6 when a.FRELATE = '兄、弟、姐、妹' then 7 else 8 end 关系P19,a.FLXADDR 联系人地址P20,case when a.FRYTJBH is null then 4 when a.FRYTJBH = '' then 4 when a.FRYTJBH = 9 then 4 else a.FRYTJBH end 入院途径P804,a.FLXTELE 联系人电话P21,CONVERT(varchar(100),a.FRYDATE,20) 入院日期P22,"
+        		sql = "select * from ("
+        				+ "select row_number() over (order by G.FPRN) as rowNum,* from ("
+        				+ "select *,NAME1 as 新生儿出生体重1P681,NAME2 as 新生儿出生体重2P682,NAME3 as 新生儿出生体重3P683,NAME4 as 新生儿出生体重4P684,NAME5 as 新生儿出生体重5P685 from ( "
+        				+ "select '48965210-X' 医疗机构代码P900,'漳州市第三医院' 机构名称P6891,'' \"医疗保险手册（卡号）P686\",a.FASCARD1 健康卡号P800,case when LEN(a.FFBBHNEW) > 1 then SUBSTRING(a.FFBBHNEW,2,1) when LEN(a.FFBBHNEW) < 1 then 7 when a.FFBBHNEW is null then 7 else a.FFBBHNEW end 医疗付款方式P1,a.FFBNEW 医疗付款方式代码,a.FTIMES 住院次数P2,a.FPRN 病案号P3,a.FNAME 姓名P4,a.FSEXBH 性别P5,a.FSEX 性别代码,CONVERT(varchar(100), a.FBIRTHDAY,23) 出生日期P6,FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) as ddd,case when FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) > 0 then FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) else null end 年龄P7,case when a.FSTATUSBH = '' or a.FSTATUSBH = NULL then '9' else a.FSTATUSBH end 婚姻状况P8,case when a.FJOBBH = 11 then 11 when a.FJOBBH = 13 then 13 when a.FJOBBH = 17 then 17 when a.FJOBBH = 21 then 21 when a.FJOBBH = 24 then 24 when a.FJOBBH = 27 then 27 when a.FJOBBH = 31 then 31 when a.FJOBBH = 37 then 37 when a.FJOBBH = 51 then 51 when a.FJOBBH = 54 then 54 when a.FJOBBH = 70 then 70 when a.FJOBBH = 80 then 80 when a.FJOBBH = 90 then 90 else 00 end 职业P9,case when PATINDEX('%省%',a.FBIRTHPLACE) > 0 then left(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生省份P101,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%省%',a.FBIRTHPLACE)+1,PATINDEX('%市%',a.FBIRTHPLACE)-PATINDEX('%省%',a.FBIRTHPLACE)) else '' end 出生地市P102,case when PATINDEX('%市%',a.FBIRTHPLACE) > 0 then substring(a.FBIRTHPLACE,PATINDEX('%市%',a.FBIRTHPLACE)+1,LEN(a.FBIRTHPLACE)) else a.FBIRTHPLACE end 出生地县P103,a.FNATIONALITY 民族P11,a.FCOUNTRY 国籍P12,a.FIDCARD 身份证号P13,a.FCURRADDR 现住址P801,a.FCURRTELE 住宅电话P802,a.FCURRPOST 现住址邮政编码P803,a.FDWADDR+a.FDWNAME 工作单位及地址P14,a.FDWTELE 电话P15,a.FDWPOST 工作单位邮政编码P16,a.FHKADDR 户口地址P17,a.FHKPOST 户口所在地邮政编码P171,a.FLXNAME 联系人姓名P18,case when a.FRELATE = '配偶' then 1 when a.FRELATE = '子' then 2 when a.FRELATE = '女' then 3 when a.FRELATE = '孙子、孙女或外孙子、外孙女' then 4 when a.FRELATE = '父母' then 5 when a.FRELATE = '祖父母或外祖父母' then 6 when a.FRELATE = '兄、弟、姐、妹' then 7 else 8 end 关系P19,a.FLXADDR 联系人地址P20,case when a.FRYTJBH is null then 4 when a.FRYTJBH = '' then 4 when a.FRYTJBH = 9 then 4 else a.FRYTJBH end 入院途径P804,a.FLXTELE 联系人电话P21,CONVERT(varchar(100),a.FRYDATE,20) 入院日期P22,"
         				+ Util.getCaseWhen(CONFIG.CASE_WHEN_DEPT, "a", "FRYDEPT") + " 入院科别P23," // 入院科别
         				+ "a.FRYBS 入院病室P231,"
         				+ Util.getCaseWhen(CONFIG.CASE_WHEN_ZKDEPT, "a", "FZKDEPT") + " 转科科别P24,CONVERT(varchar(100),a.FCYDATE,20) 出院日期P25,"
@@ -262,12 +275,24 @@ String sql = "delete from " + tableName;//查询test表
 //            		+ "case when a.FIFSS = 1 then case when c.FZQSSBH = 1 then '2' else '1' end else '0' end 手术患者类型P581,"
             		+ "'' 手术患者类型P581,"
             		+ "a.FISSZBH 随诊P60,'' 随诊周数P611,'' 随诊月数P612,'' 随诊年数P613,a.FSAMPLEBH 示教病例P59,a.FBLOODBH ABO血型P62,a.FRHBH Rh血型P63,a.FSXFYBH 输血反应P64,d.FREDCELL 红细胞P651,d.FPLAQUE 血小板P652,d.FSEROUS 血浆P653,d.FALLBLOOD 全血P654,'' 自体回收P655,d.FOTHERBLOOD 其它P656,case when FLOOR(datediff(day,a.FBIRTHDAY,a.FRYDATE)/365.25) = 0 then CAST((cast(datediff(day,a.FBIRTHDAY,a.FRYDATE) - (datediff(month,a.FBIRTHDAY,a.FRYDATE) * 30) as float) / 30) as decimal(4,2)) + datediff(month,a.FBIRTHDAY,a.FRYDATE) else null end '（年龄不足1 周岁的）年龄P66',"
-            		+ "a.FCSTZ 新生儿出生体重1P681,'' 新生儿出生体重2P682,'' 新生儿出生体重3P683,'' 新生儿出生体重4P684,'' 新生儿出生体重5P685,a.FRYTZ 新生儿入院体重P67,a.FRYQHMHOURS '入院前多少小时(颅脑损伤患者昏迷时间)P731',a.FRYQHMMINS '入院前多少分钟(颅脑损伤患者昏迷时间)P732',a.FRYHMHOURS '入院后多少小时(颅脑损伤患者昏迷时间)P733',a.FRYHMMINS '入院后多少分钟(颅脑损伤患者昏迷时间)P734','' 呼吸机使用时间P72,a.FISAGAINRYBH '是否有出院31天内再住院计划P830',a.FISAGAINRYMD '出院31天再住院计划目的P831',a.FLYFSBH 离院方式P741,a.FYZOUTHOSTITAL 转入医院名称P742,a.FSQOUTHOSTITAL '转入社区服务机构/乡镇卫生院名称P743',a.FSUM1 住院总费用P782,a.FZFJE 住院总费用其中自付金额P751,a.FZHFWLYLF 一般医疗服务费P752,a.FZHFWLCZF 一般治疗操作费P754,a.FZHFWLHLF 护理费P755,a.FZHFWLQTF 综合医疗服务类其他费用P756,a.FZDLBLF 病理诊断费P757,a.FZDLSSSF 实验室诊断费P758,a.FZDLYXF 影像学诊断费P759,a.FZDLLCF 临床诊断项目费P760,a.FZLLFFSSF 非手术治疗项目费P761,a.FZLLFWLZWLF 临床物理治疗费P762,a.FZLLFSSF 手术治疗费P763,a.FZLLFMZF 麻醉费P764,a.FZLLFSSZLF 手术费P765,a.FKFLKFF 康复费P767,a.FZYLZF 中医治疗费P768,a.FXYF 西药费P769,a.FXYLGJF 抗菌药物费用P770,a.FZCHYF 中成药费P771,a.FZCYF 中草药费P772,a.FXYLXF 血费P773,a.FXYLBQBF  白蛋白类制品费P774,a.FXYLQDBF 球蛋白类制品费P775,a.FXYLYXYZF 凝血因子类制品费P776, a.FXYLXBYZF 细胞因子类制品费P777,a.FHCLCJF 检查用一次性医用材料费P778,a.FHCLZLF 治疗用一次性医用材料费P779,a.FHCLSSF 手术用一次性医用材料费P780,a.FQTF 其他费P781 "
+//            		+ "a.FCSTZ 新生儿出生体重1P681,'' 新生儿出生体重2P682,'' 新生儿出生体重3P683,'' 新生儿出生体重4P684,'' 新生儿出生体重5P685,"
+            		+ "a.FRYTZ 新生儿入院体重P67,a.FRYQHMHOURS '入院前多少小时(颅脑损伤患者昏迷时间)P731',a.FRYQHMMINS '入院前多少分钟(颅脑损伤患者昏迷时间)P732',a.FRYHMHOURS '入院后多少小时(颅脑损伤患者昏迷时间)P733',a.FRYHMMINS '入院后多少分钟(颅脑损伤患者昏迷时间)P734','' 呼吸机使用时间P72,a.FISAGAINRYBH '是否有出院31天内再住院计划P830',a.FISAGAINRYMD '出院31天再住院计划目的P831',a.FLYFSBH 离院方式P741,a.FYZOUTHOSTITAL 转入医院名称P742,a.FSQOUTHOSTITAL '转入社区服务机构/乡镇卫生院名称P743',a.FSUM1 住院总费用P782,a.FZFJE 住院总费用其中自付金额P751,a.FZHFWLYLF 一般医疗服务费P752,a.FZHFWLCZF 一般治疗操作费P754,a.FZHFWLHLF 护理费P755,a.FZHFWLQTF 综合医疗服务类其他费用P756,a.FZDLBLF 病理诊断费P757,a.FZDLSSSF 实验室诊断费P758,a.FZDLYXF 影像学诊断费P759,a.FZDLLCF 临床诊断项目费P760,a.FZLLFFSSF 非手术治疗项目费P761,a.FZLLFWLZWLF 临床物理治疗费P762,a.FZLLFSSF 手术治疗费P763,a.FZLLFMZF 麻醉费P764,a.FZLLFSSZLF 手术费P765,a.FKFLKFF 康复费P767,a.FZYLZF 中医治疗费P768,a.FXYF 西药费P769,a.FXYLGJF 抗菌药物费用P770,a.FZCHYF 中成药费P771,a.FZCYF 中草药费P772,a.FXYLXF 血费P773,a.FXYLBQBF  白蛋白类制品费P774,a.FXYLQDBF 球蛋白类制品费P775,a.FXYLYXYZF 凝血因子类制品费P776, a.FXYLXBYZF 细胞因子类制品费P777,a.FHCLCJF 检查用一次性医用材料费P778,a.FHCLZLF 治疗用一次性医用材料费P779,a.FHCLSSF 手术用一次性医用材料费P780,a.FQTF 其他费P781,b.* "
             		+ "from TPATIENTVISIT a "
-            		+ "left join HIS_BA1 d on a.FPRN=d.FPRN  left join (select * from Tdiagnose where FZDLX = 's') g on a.FPRN = g.FPRN where  "
-            		+ CONFIG.OUT_DATE;
+            		+ "left join HIS_BA1 d on a.FPRN=d.FPRN  "
+            		+ "left join (select * from Tdiagnose where FZDLX = 's') g on a.FPRN = g.FPRN "
+            		+ "left join (select FPRN,'NAME' + convert(varchar,FBABYNUM) as NAME,FTZ from TBABYCARD) b on a.FPRN = b.FPRN "
+            		+ " where  "
+            		+ " a.FCYDATE between '" + Util.getSomedayEarly(-10) + "' and '" + Util.getSomedayEarly(-10) + "' "
+    				+ ") AS P "
+    				+ "PIVOT"
+    				+ "("
+    				+ " sum(FTZ) for "
+    				+ "P.NAME in (NAME1,NAME2,NAME3,NAME4,NAME5) "
+    				+ " ) as t"
+    				+ " ) as G"
+    				+ " ) as C";
             		if (CONFIG.IsMultiThread) {
-                		sql += ")as t where rowNum between " + start + " and " + end;
+                		sql += " where rowNum between " + start + " and " + end;
             		}
 //					+ " and a.FPRN = '00175611'"
 //            		+ " where a.FPRN = '00184374'"
@@ -308,7 +333,9 @@ String sql = "delete from " + tableName;//查询test表
             while(res.next()){
 //            	LoggerManager.setInfoLog("-----------------开始处理第" + res.getRow() + "条数据");
             	DataTranDemo.row++;
-            	LoggerManager.setInfoLog("-----------------开始处理第" + DataTranDemo.row + "条数据");
+            	if (CONFIG.SHOW_NORMAL_LOG) {
+                	LoggerManager.setInfoLog("-----------------开始处理第" + DataTranDemo.row + "条数据");
+            	}
             	for (int i = 0; i < fields.length; i++) {
             		columnName = fields[i].getName();
             		if (columnName == "columnMap" || columnName == "bigint_flag" || columnName == "lenth_map" || columnName == "column_part1" || columnName == "column_part2") {
@@ -322,7 +349,9 @@ String sql = "delete from " + tableName;//查询test表
             	// ---------------- 诊断 ---------------------------
             	// 创建诊断SQL
             	diagnose_sql = "select FICDM 主要诊断编码,case when fsxzd is null or fsxzd = '' then '无' else fsxzd end 主要诊断疾病描述,FRYBQBH 主要诊断入院病情,case when FZLJGBH = 5 or FZLJGBH is null or FZLJGBH = '' then 9 else FZLJGBH end 主要诊断出院情况 from tDiagnose where FZDLX != 's' and FPRN = '" + patient.getP3() + "' order by FZDLX asc";
-            	LoggerManager.setInfoLog("病人病案号" + patient.getP3());
+            	if (CONFIG.SHOW_NORMAL_LOG) {
+                	LoggerManager.setInfoLog("病人病案号" + patient.getP3());
+            	}
             	if (CONFIG.SHOW_SQL_LOG) {
                 	LoggerManager.setInfoLog(diagnose_sql);
             	}
@@ -388,7 +417,9 @@ String sql = "delete from " + tableName;//查询test表
                 		getMethod = o_invoke.getMethod("set" + operation.getOper_flag()[row][12], new Class[] {String.class});
                 		getMethod.invoke(operation, operation_res.getString("麻醉医师"));
             	}
-            	LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据读取完毕");
+            	if (CONFIG.SHOW_NORMAL_LOG) {
+                	LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据读取完毕");
+            	}
 
             	// 开始插入数据库
             	columnName = null;
@@ -486,14 +517,18 @@ String sql = "delete from " + tableName;//查询test表
                 	}
                 }
                 String sql_to_insert = insert_SQL.substring(0, insert_SQL.length() - 1) + ")" + values_SQL.substring(0, values_SQL.length() - 1) + ");";
-            	LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据插入SQL生成完成，开始插入数据库");
+            	if (CONFIG.SHOW_NORMAL_LOG) {
+                    LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据插入SQL生成完成，开始插入数据库");
+            	}
             	if (CONFIG.SHOW_SQL_LOG) {
                     LoggerManager.setInfoLog(sql_to_insert);
             	}
             	insert_statement = con.prepareStatement(sql_to_insert);
             	insert_statement.executeUpdate();
 //                insert_stm.addBatch(sql_to_insert);
-            	LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据插入数据库成功");
+            	if (CONFIG.SHOW_NORMAL_LOG) {
+                	LoggerManager.setInfoLog("-----------------第" + DataTranDemo.row + "条数据插入数据库成功");
+            	}
             	
             	// 杀死病人
             	patient.KillPatient();
@@ -512,7 +547,6 @@ String sql = "delete from " + tableName;//查询test表
 			} catch (SQLException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
-                SendWechatMsg.sendMsg("JDBCUtil", e1.getMessage(), Util.getNowTime());
 				LoggerManager.setErrorLog(e1);
 			}
             e.printStackTrace();
@@ -531,7 +565,6 @@ String sql = "delete from " + tableName;//查询test表
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
-                SendWechatMsg.sendMsg("JDBCUtil", e2.getMessage(), Util.getNowTime());
 				LoggerManager.setErrorLog(e2);
             }
         }

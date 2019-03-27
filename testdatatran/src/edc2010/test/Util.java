@@ -263,8 +263,10 @@ public class Util {
 		public static String getSomedayEarly(int days) {
 			java.util.Calendar c=java.util.Calendar.getInstance();    
 	        java.text.SimpleDateFormat f=new java.text.SimpleDateFormat("yyyyMMdd");    
-	        // Reduce 10 Days
-	        c.add(java.util.Calendar.DATE, days);
+	        if (days != 0) {
+		        // Reduce 10 Days
+		        c.add(java.util.Calendar.DATE, days);
+	        }
 //	        System.out.println( "获取日期：" + f.format(c.getTime()));
 //	        LoggerManager.setInfoLog( "获取日期：" + f.format(c.getTime()));
 	        return f.format(c.getTime());
