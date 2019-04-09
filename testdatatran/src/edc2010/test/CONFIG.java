@@ -9,7 +9,8 @@ public class CONFIG {
 	public final static String mysql_datatable = "hqms";
 	// 病案数据库相关信息
 	public final static String HIS_IP = "13.18.1.150";
-	public final static String SERVICE_URL="https://hqmststest.medidata.com.cn";
+//	public final static String SERVICE_URL="https://hqmststest.medidata.com.cn"; // 测试地址	
+	public final static String SERVICE_URL="https://ts.hqms.org.cn"; // 正式地址
 	public final static String DBFNAME_prefix = "hqms_";
 	public final static String DBFPath = "D:/hqms/";
 	public final static String U = "sa";
@@ -27,7 +28,7 @@ public class CONFIG {
 	public final static boolean SHOW_NORMAL_LOG = false;
 	
 	// 是否显示SQL日志
-	public final static boolean SHOW_SQL_LOG = true;
+	public final static boolean SHOW_SQL_LOG = false;
 	
 	// 是否显示DBF生成日志
 	public final static boolean SHOW_DBF_LOG = false;
