@@ -1,8 +1,10 @@
 package edc2010.test;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +23,12 @@ public class Util {
 	        }  
 	        return false;
 	    }
+	
+	public static boolean fileRename(String path, String newPath) {
+		File file = new File(path);
+		File newFile = new File(newPath);
+		return file.renameTo(newFile);
+	}
 	
 	public static List<Map<String,String>> addressResolution(String address){
 		/* 
@@ -264,12 +272,32 @@ public class Util {
 			java.util.Calendar c=java.util.Calendar.getInstance();    
 	        java.text.SimpleDateFormat f=new java.text.SimpleDateFormat("yyyyMMdd");    
 	        if (days != 0) {
-		        // Reduce 10 Days
+		        // Reduce 30 Days
 		        c.add(java.util.Calendar.DATE, days);
 	        }
 //	        System.out.println( "获取日期：" + f.format(c.getTime()));
 //	        LoggerManager.setInfoLog( "获取日期：" + f.format(c.getTime()));
 	        return f.format(c.getTime());
+		}
+		
+		public static String getSomedayEarly(String time,int days) {
+			java.util.Calendar c=java.util.Calendar.getInstance();    
+	        java.text.SimpleDateFormat f=new java.text.SimpleDateFormat("yyyyMMdd");    
+	        try {
+				Date date = f.parse(time);
+				c.setTime(date);
+				 if (days != 0) {
+				        // Reduce 30 Days
+				        c.add(java.util.Calendar.DATE, days);
+			        }
+//			        System.out.println( "获取日期：" + f.format(c.getTime()));
+//			        LoggerManager.setInfoLog( "获取日期：" + f.format(c.getTime()));
+			        return f.format(c.getTime());
+			} catch (ParseException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+	       return "";
 		}
 		
 		public static String getCaseWhen(String[][] double_dimensional_arrays,String table_alias,String column) {

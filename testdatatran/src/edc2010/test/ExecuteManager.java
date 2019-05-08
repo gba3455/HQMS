@@ -77,6 +77,15 @@ public class ExecuteManager implements Runnable {
 			}
 		}
 		
+		// 开始处理补传数据
+		if (JDBCUtil.ReupdateFromFile(CONFIG.ReUploadFilePath)) {
+			Util.fileRename(CONFIG.ReUploadFilePath, CONFIG.ReUploadFilePath.substring(0, CONFIG.ReUploadFilePath.length() - 4) + Util.getSomedayEarly(0));
+		}
+		
+		if (JDBCUtil.ReupdateFromTimeFile(CONFIG.ReUploadTimeFilePath)) {
+			Util.fileRename(CONFIG.ReUploadTimeFilePath, CONFIG.ReUploadTimeFilePath.substring(0, CONFIG.ReUploadTimeFilePath.length() - 4) + Util.getSomedayEarly(0));
+		}
+		
 		// 开始读取template数据库
 		ResultSet res = JDBCUtil.GetTableData(CONFIG.dataTable);
 		boolean DBFCreateStatus = false;

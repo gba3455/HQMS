@@ -24,6 +24,10 @@ public class CONFIG {
 	public final static int Column_Num_part1 = 254;
 	public final static int Column_Num_part2 = 94; // Part1内的P3和P20在前2位
 	
+	// 读取本地文件路径
+	public final static String ReUploadFilePath = "D:/hqms/lost/FPRN.txt"; 
+	public final static String ReUploadTimeFilePath = "D:/hqms/lost/TIME.txt"; 
+	
 	// 是否显示正常日志
 	public final static boolean SHOW_NORMAL_LOG = false;
 	
@@ -43,6 +47,7 @@ public class CONFIG {
 	public final static String DATA_TYPE="json"; 
 	// 限制出院日期
 //	public static String OUT_DATE = " a.FCYDATE between '" + Util.getSomedayEarly(-10) + "' and '" + Util.getSomedayEarly(-10) + "' ";
+	public static int days = -30;
 	// 启动时是否清空template
 	public final static boolean CleanTable = true;
 	// 是否多线程
@@ -61,7 +66,9 @@ public class CONFIG {
 	
 	// 科别代码表
 	public final static String[][] CASE_WHEN_DEPT = {
-			{"医院感染管理科", "16"}, 
+			{"医院感染管理科", "16"},
+			{"感染性疾病科", "16"},
+			{"急诊科", "20"},  
 			{"急诊医学科", "20"}, 
 			{"门诊输液室", "20"}, 
 			{"疼痛科门诊", "27"}, 
@@ -73,7 +80,8 @@ public class CONFIG {
 			{"康复科(新)", "21"},
 			{"康复科", "21"},  
 			{"康复科门诊", "21"}, 
-			{"重症医学科", "28"}, 
+			{"重症医学科", "28"},
+			{"呼吸内科", "28"},  
 			{"呼吸与危重症医学科", "0301"},
 			{"呼吸与危重症医学科(新)", "0301"},  
 			{"呼吸与危重症医学科门诊", "0301"}, 
@@ -89,7 +97,8 @@ public class CONFIG {
 			{"神经内科", "0303"}, 
 			{"神经内科门诊", "0303"},
 			{"消化内科(新)", "0302"},  
-			{"消化内科", "0302"}, 
+			{"消化内科", "0302"},
+			{"消化科", "0302"},  
 			{"消化内科门诊", "0302"},
 			{"内分泌科(新)", "0307"},  
 			{"内分泌科", "0307"}, 
@@ -131,17 +140,20 @@ public class CONFIG {
 			{"骨一科", "0403"}, 
 			{"骨一科门诊", "0403"},
 			{"骨二科(新)", "0403"},  
-			{"骨二科", "0403"}, 
+			{"骨二科", "0403"},
+			{"骨三科", "0403"},  
 			{"骨二科门诊", "0403"}, 
 			{"手足外科·慢创治疗科", "0403"},
 			{"手足外科·慢创治疗科(新)", "0403"},  
 			{"手足外科·慢创治疗科门诊", "0403"}, 
 			{"急慢性创口治疗科", "0409"}, 
 			{"眼科二", "10"}, 
+			{"眼科二(新)", "10"}, 
 			{"妇产科(新)", "05"},
 			{"妇产科", "05"},  
 			{"妇产科门诊", "05"}, 
-			{"生殖内分泌科", "05"}, 
+			{"生殖内分泌科", "05"},
+			{"辅助生殖科", "05"},  
 			{"妇产一科(新)", "05"}, 
 			{"妇产二科(新)", "05"},
 			{"妇产一科", "05"}, 
@@ -152,7 +164,7 @@ public class CONFIG {
 			{"儿科(新)", "07"},  
 			{"儿科", "07"}, 
 			{"儿科门诊", "07"},
-			{"眼科(新)", "10"},  
+			{"眼科(新)", "10"},   
 			{"眼科", "10"}, 
 			{"眼科门诊", "10"}, 
 			{"耳鼻咽喉科(新)", "11"},
