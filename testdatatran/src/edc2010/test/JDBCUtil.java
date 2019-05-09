@@ -377,8 +377,9 @@ String sql = "delete from " + tableName;//查询test表
 		            			"when FQIEKOUBH = 1 and FYUHEBH = 1 then 1 when FQIEKOUBH = 1 and FYUHEBH = 2 then 2 when FQIEKOUBH = 1 and FYUHEBH = 3 then 3 when FQIEKOUBH = 1 and FYUHEBH is null or FYUHEBH = 4 then 10 \r\n" + 
 		            			"when FQIEKOUBH = 2 and FYUHEBH = 1 then 4 when FQIEKOUBH = 2 and FYUHEBH = 2 then 5 when FQIEKOUBH = 2 and FYUHEBH = 3 then 6 when FQIEKOUBH = 2 and FYUHEBH is null or FYUHEBH = 4 then 11\r\n" + 
 		            			"when FQIEKOUBH = 3 and FYUHEBH = 1 then 7 when FQIEKOUBH = 3 and FYUHEBH = 2 then 8 when FQIEKOUBH = 3 and FYUHEBH = 3 then 9 when FQIEKOUBH = 3 and FYUHEBH is null or FYUHEBH = 4 then 12\r\n" + 
-		            			" end 切口愈合等级,FMZDOCT 麻醉医师\r\n" + 
-		            			"from TOPERATION t left join [" + CONFIG.HIS_IP + "].THIS4.dbo.SS_SSDJK s on t.FPRN = s.blh collate Chinese_PRC_CI_AS where t.FPRN = '" + patient.getP3() + "';";
+		            			" end 切口愈合等级,t.FMZDOCT 麻醉医师\r\n" + 
+		            			"from TOPERATION t left join (select * from [" + CONFIG.HIS_IP + "].THIS4.dbo.SS_SSDJK s left join TPATIENTVISIT p on s.syxh = p.FZYID where s.syxh in (select FZYID from TPATIENTVISIT where FPRN = '" + patient.getP3() + "' and FTIMES = '" + patient.getP2() + "')) s on t.FPRN = s.blh collate Chinese_PRC_CI_AS" +
+		            			" where t.FPRN = '" + patient.getP3() + "' and t.FTIMES = '" + patient.getP2() + "';";
 		            	if (CONFIG.SHOW_SQL_LOG) {
 		            		LoggerManager.setInfoLog(operation_sql);
 		            	}
@@ -729,8 +730,9 @@ String sql = "delete from " + tableName;//查询test表
 	            			"when FQIEKOUBH = 1 and FYUHEBH = 1 then 1 when FQIEKOUBH = 1 and FYUHEBH = 2 then 2 when FQIEKOUBH = 1 and FYUHEBH = 3 then 3 when FQIEKOUBH = 1 and FYUHEBH is null or FYUHEBH = 4 then 10 \r\n" + 
 	            			"when FQIEKOUBH = 2 and FYUHEBH = 1 then 4 when FQIEKOUBH = 2 and FYUHEBH = 2 then 5 when FQIEKOUBH = 2 and FYUHEBH = 3 then 6 when FQIEKOUBH = 2 and FYUHEBH is null or FYUHEBH = 4 then 11\r\n" + 
 	            			"when FQIEKOUBH = 3 and FYUHEBH = 1 then 7 when FQIEKOUBH = 3 and FYUHEBH = 2 then 8 when FQIEKOUBH = 3 and FYUHEBH = 3 then 9 when FQIEKOUBH = 3 and FYUHEBH is null or FYUHEBH = 4 then 12\r\n" + 
-	            			" end 切口愈合等级,FMZDOCT 麻醉医师\r\n" + 
-	            			"from TOPERATION t left join [" + CONFIG.HIS_IP + "].THIS4.dbo.SS_SSDJK s on t.FPRN = s.blh collate Chinese_PRC_CI_AS where t.FPRN = '" + patient.getP3() + "';";
+	            			" end 切口愈合等级,t.FMZDOCT 麻醉医师\r\n" + 
+	            			"from TOPERATION t left join (select * from [" + CONFIG.HIS_IP + "].THIS4.dbo.SS_SSDJK s left join TPATIENTVISIT p on s.syxh = p.FZYID where s.syxh in (select FZYID from TPATIENTVISIT where FPRN = '" + patient.getP3() + "' and FTIMES = '" + patient.getP2() + "')) s on t.FPRN = s.blh collate Chinese_PRC_CI_AS" +
+	            			" where t.FPRN = '" + patient.getP3() + "' and t.FTIMES = '" + patient.getP2() + "';";
 	            	if (CONFIG.SHOW_SQL_LOG) {
 	            		LoggerManager.setInfoLog(operation_sql);
 	            	}
@@ -1080,8 +1082,9 @@ if (CONFIG.IsMultiThread) {
             			"when FQIEKOUBH = 1 and FYUHEBH = 1 then 1 when FQIEKOUBH = 1 and FYUHEBH = 2 then 2 when FQIEKOUBH = 1 and FYUHEBH = 3 then 3 when FQIEKOUBH = 1 and FYUHEBH is null or FYUHEBH = 4 then 10 \r\n" + 
             			"when FQIEKOUBH = 2 and FYUHEBH = 1 then 4 when FQIEKOUBH = 2 and FYUHEBH = 2 then 5 when FQIEKOUBH = 2 and FYUHEBH = 3 then 6 when FQIEKOUBH = 2 and FYUHEBH is null or FYUHEBH = 4 then 11\r\n" + 
             			"when FQIEKOUBH = 3 and FYUHEBH = 1 then 7 when FQIEKOUBH = 3 and FYUHEBH = 2 then 8 when FQIEKOUBH = 3 and FYUHEBH = 3 then 9 when FQIEKOUBH = 3 and FYUHEBH is null or FYUHEBH = 4 then 12\r\n" + 
-            			" end 切口愈合等级,FMZDOCT 麻醉医师\r\n" + 
-            			"from TOPERATION t left join [" + CONFIG.HIS_IP + "].THIS4.dbo.SS_SSDJK s on t.FPRN = s.blh collate Chinese_PRC_CI_AS where t.FPRN = '" + patient.getP3() + "';";
+            			" end 切口愈合等级,t.FMZDOCT 麻醉医师\r\n" + 
+            			"from TOPERATION t left join (select * from [" + CONFIG.HIS_IP + "].THIS4.dbo.SS_SSDJK s left join TPATIENTVISIT p on s.syxh = p.FZYID where s.syxh in (select FZYID from TPATIENTVISIT where FPRN = '" + patient.getP3() + "' and FTIMES = '" + patient.getP2() + "')) s on t.FPRN = s.blh collate Chinese_PRC_CI_AS" +
+            			" where t.FPRN = '" + patient.getP3() + "' and t.FTIMES = '" + patient.getP2() + "';";
             	if (CONFIG.SHOW_SQL_LOG) {
             		LoggerManager.setInfoLog(operation_sql);
             	}
