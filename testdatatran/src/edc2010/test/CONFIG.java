@@ -1,8 +1,8 @@
 package edc2010.test;
 
 public class CONFIG {
-	// 使用权限数据库相关信息
-	public final static String mysql_url = "jdbc:mysql://zzsdsyyhqms.cq0jsnkjplaj.ap-northeast-1.rds.amazonaws.com:3306/zzsdsyy_hqms?autoReconnect=true";
+	// 使用权限数据库相关信息 -- cq0jsnkjplaj  -cllzva1vvufv
+	public final static String mysql_url = "jdbc:mysql://zzsdsyyhqms.cllzva1vvufv.ap-northeast-1.rds.amazonaws.com:3306/zzsdsyy_hqms?autoReconnect=true";
 	public final static String mysql_U = "gba3455";
 	public final static String mysql_P = "5408821234";
 	public final static String mysql_cfn = "com.mysql.jdbc.Driver";
@@ -75,6 +75,7 @@ public class CONFIG {
 			{"麻醉科", "26"}, 
 			{"手术室", "26"}, 
 			{"中医科(新)", "50"},
+			{"中医科二(新)", "50"},
 			{"中医科", "50"},  
 			{"中医科门诊", "50"}, 
 			{"康复科(新)", "21"},
@@ -164,10 +165,15 @@ public class CONFIG {
 			{"妇产二科门诊", "05"}, 
 			{"生殖内分泌科门诊", "0505"},
 			{"儿科(新)", "07"},  
-			{"儿科", "07"}, 
+			{"儿科", "07"},
+			{"儿科(C11)", "07"},  
 			{"儿科门诊", "07"},
 			{"眼科(新)", "10"},   
-			{"眼科", "10"}, 
+			{"眼科", "10"},
+			{"眼科二", "10"}, 
+			{"眼科二(新)", "10"},
+			{"眼科三", "10"}, 
+			{"眼科三(新)", "10"},  
 			{"眼科门诊", "10"}, 
 			{"耳鼻咽喉科(新)", "11"},
 			{"耳鼻咽喉科", "11"},  
